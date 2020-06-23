@@ -1,16 +1,26 @@
-import { theme as chakraTheme } from '@chakra-ui/core'
+import { theme as chakraTheme } from "@chakra-ui/core";
+// import { useColorMode, Switch } from "@chakra-ui/core";
 
-const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` }
+const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` };
 
-const breakpoints = ['40em', '52em', '64em']
+const breakpoints = ["575px", "767px", "991px"];
 
+//#65b77a
 const theme = {
   ...chakraTheme,
   colors: {
     ...chakraTheme.colors,
-    black: '#16161D',
+    black: "#16161D",
+    grey: {
+      50: "#f8fcff",
+    },
+    primary: "#65b77a",
   },
-  fonts,
+  fonts: {
+    body: "Raleway, sans-serif",
+    heading: "Raleway, sans-serif",
+    mono: "Raleway, sans-serif",
+  },
   breakpoints,
   icons: {
     ...chakraTheme.icons,
@@ -30,9 +40,9 @@ const theme = {
           />
         </svg>
       ),
-      viewBox: '0 0 3000 3163',
+      viewBox: "0 0 3000 3163",
     },
   },
-}
+};
 
-export default theme
+export default theme;
