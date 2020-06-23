@@ -12,6 +12,8 @@ import {
   Image,
   Heading,
   Badge,
+  Avatar,
+  PseudoBox,
 } from "@chakra-ui/core";
 
 import { Hero } from "../components/Hero";
@@ -43,22 +45,23 @@ const Index = () => (
           overflowX="scroll"
           overflowY="hidden"
           display="flex"
+          className="savedJobsRow"
           ml="-7%"
           px="7%"
         >
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => (
             <Box
-              minW={250}
+              minW={[235, 240]}
               mr="16px"
               display="block"
               p={4}
               border="2px solid"
               borderColor="gray.50"
               borderRadius={16}
-              height={300}
+              height={[240, 290]}
               backgroundColor="white"
             >
-              <Text height={120} mb={70} fontSize="2xl">
+              <Text height={[65, 120]} mb={70} fontSize={["xl", "2xl"]}>
                 {"Residential Counselor - Torrey House, Haverford - CareLink Community Support Services".replace(
                   /(.{48})..+/,
                   "$1…"
@@ -86,13 +89,21 @@ const Index = () => (
               </Flex>
               <Flex justify="space-between">
                 <Flex>
-                  <Image
+                  <Avatar
+                    position="inherit"
+                    width={6}
+                    height={6}
                     src="https://picsum.photos/200"
-                    size={6}
-                    rounded="full"
-                    alt="sender-image"
-                  ></Image>
-
+                  />
+                  {
+                    //   <Image
+                    //   src="https://picsum.photos/200"
+                    //   size={6}
+                    //   fallbackSrc="https://via.placeholder.com/150"
+                    //   rounded="full"
+                    //   alt="sender-image"
+                    // ></Image>
+                  }
                   <Text ml={2}>A user</Text>
                 </Flex>
                 <Box>13:08</Box>
@@ -151,7 +162,95 @@ const Index = () => (
                   </Text>
                 </Box>
                 <Box pt={2}>
-                  <Text fontSize="sm">2 hours ago</Text>
+                  <Text fontSize="sm" isTruncated>
+                    2 hours ago
+                  </Text>
+                </Box>
+              </Flex>
+            </Box>
+          </Stack>
+        </Box>
+
+        <Text fontWeight="bold" mt={8} fontSize="lg">
+          Other Job Tweets
+        </Text>
+
+        <Flex
+          pt={1}
+          style={{ flexFlow: "nowrap" }}
+          overflowX="scroll"
+          overflowY="hidden"
+          display="flex"
+          className="savedJobsRow"
+          ml="-7%"
+          px="7%"
+        >
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(() => (
+            <Box
+              minW={[200, 240]}
+              mr="16px"
+              display="block"
+              p={4}
+              border="2px solid"
+              borderColor="gray.50"
+              borderRadius={16}
+              height={[180, 220]}
+              backgroundColor="white"
+            >
+              <Text height={[50, 80]} mb={70} fontSize={["sm", "lg"]}>
+                {"Residential Counselor - Torrey House, Haverford - CareLink Community Support Services".replace(
+                  /(.{88})..+/,
+                  "$1…"
+                )}
+              </Text>
+              <Flex justify="space-between">
+                <Flex>
+                  <Avatar
+                    position="inherit"
+                    width={6}
+                    height={6}
+                    src="https://picsum.photos/200"
+                  />
+                  {
+                    //   <Image
+                    //   src="https://picsum.photos/200"
+                    //   size={6}
+                    //   fallbackSrc="https://via.placeholder.com/150"
+                    //   rounded="full"
+                    //   alt="sender-image"
+                    // ></Image>
+                  }
+                  <Text ml={2}>A user</Text>
+                </Flex>
+                <Box>13:08</Box>
+              </Flex>
+            </Box>
+          ))}
+        </Flex>
+        <Box mt={2} pr="6%">
+          <Stack spacing={3}>
+            <Box p={4} backgroundColor="white" shadow="none" borderRadius={12}>
+              <Flex>
+                <Box mr="16px">
+                  <Image
+                    src="https://picsum.photos/200"
+                    size={10}
+                    rounded={10}
+                    alt="sender-image"
+                  ></Image>
+                </Box>
+                <Box width="88%">
+                  <Text isTruncated fontSize="md">
+                    New Job Title
+                  </Text>
+                  <Text color="gray.500" fontSize="xs" isTruncated>
+                    by simplytammy
+                  </Text>
+                </Box>
+                <Box pt={2}>
+                  <Text fontSize="sm" isTruncated>
+                    2 hours ago
+                  </Text>
                 </Box>
               </Flex>
             </Box>
@@ -159,6 +258,26 @@ const Index = () => (
         </Box>
       </Stack>
     </Box>
+    <style jsx>{`
+      .savedJobsRow {
+        background-color: green;
+      }
+      .savedJobsRow::-webkit-scrollbar {
+        width: 10px !important;
+        height: 4px !important;
+        background-color: green;
+        border-radius: 16px;
+      }
+
+      .savedJobsRow::-webkit-scrollbar-thumb {
+        background: green;
+        border-radius: 16px;
+      }
+
+      .savedJobsRow::-webkit-scrollbar-thumb:hover {
+        background: green;
+      }
+    `}</style>
   </Box>
 );
 

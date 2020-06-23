@@ -1,0 +1,15 @@
+.savedJobsRow::-webkit-scrollbar {
+    width: 0px !important;
+    height: 0px !important;
+    background-color: green;
+    border-radius: 16px;
+}
+
+.savedJobsRow::-webkit-scrollbar-thumb {
+    background: green;
+    border-radius: 16px;
+}
+
+.savedJobsRow::-webkit-scrollbar-thumb:hover {
+    background: green;
+}
