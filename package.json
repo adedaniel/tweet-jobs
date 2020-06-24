@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "cross-env NEXT_EXPORT=true next build && cross-env NEXT_EXPORT=true next export",
+    "export": "next export",
     "deploy": "yarn build && yarn export"
   },
   "dependencies": {
