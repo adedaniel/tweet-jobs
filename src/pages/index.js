@@ -24,6 +24,7 @@ import {
   Button,
   IconButton,
   DrawerFooter,
+  Link,
 } from "@chakra-ui/core";
 import Moment from "react-moment";
 // import Slider from "react-slick";
@@ -133,7 +134,7 @@ function Index() {
           <Text style={{ marginBottom: "-4px" }} color="gray.600" fontSize="lg">
             Hello Klein,
           </Text>
-          <Heading my={0} fontWeight="extrabold" fontSize="5xl">
+          <Heading my={0} fontWeight="extrabold" fontSize={["4xl", "5xl"]}>
             Your Jobs
           </Heading>
           <Text fontWeight="bold" my={1} fontSize="lg">
@@ -406,7 +407,7 @@ function Index() {
           <DrawerContent
             ref={referenceField}
             borderRadius={["20px 20px 0 0", "20px 20px 0 0", "30px 30px 0 0"]}
-            height={["80%", "80%", "80%", "70%"]}
+            height={["85%", "85%", "85%", "75%"]}
           >
             <DrawerCloseButton top={4} right={[4, 8]} />
             <DrawerHeader borderBottomWidth="0px">
@@ -445,6 +446,28 @@ function Index() {
                     Remote
                   </Badge>
                 </Stack>
+
+                <Box>
+                  <Stack justifyContent="center" isInline spacing={3}>
+                    <Avatar
+                      name={"job author"}
+                      position="inherit"
+                      width={6}
+                      height={6}
+                      src={"https://bit.ly/dan-abramov"}
+                    />
+
+                    <Text color="gray.500">
+                      <Link
+                        textDecoration="none !important"
+                        href="https://chakra-ui.com"
+                        isExternal
+                      >
+                        Dan_Abramov
+                      </Link>
+                    </Text>
+                  </Stack>
+                </Box>
               </Box>
               <Box mt={8}>
                 <Text fontSize="lg">
@@ -459,25 +482,28 @@ function Index() {
               justifyContent="center"
               pb={[8, 16]}
             >
-              <Stack isInline justify="center" spacing={3}>
-                <IconButton
-                  variant="ghost"
-                  // variantColor="red"
-
-                  aria-label="Save Job"
-                  fontSize="20px"
-                  icon={MdFavoriteBorder}
-                />
-                <Button
-                  variant="solid"
-                  variantColor="primary"
-                  width="3xs"
-                  height={12}
-                  color="white"
-                  backgroundColor="primary"
-                >
-                  Apply
-                </Button>
+              <Stack display="flex" justify="center" spacing={3}>
+                <Box>
+                  <IconButton
+                    variant="ghost"
+                    aria-label="Save Job"
+                    fontSize="20px"
+                    icon={MdFavoriteBorder}
+                  />
+                  <Button
+                    as="a"
+                    target="_blank"
+                    href="https://chakra-ui.com"
+                    variant="solid"
+                    variantColor="primary"
+                    width="3xs"
+                    height={12}
+                    color="white"
+                    backgroundColor="primary"
+                  >
+                    Apply
+                  </Button>
+                </Box>
               </Stack>
             </DrawerFooter>
           </DrawerContent>
