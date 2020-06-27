@@ -21,31 +21,19 @@ export default function Appbar() {
                 <div>
                   <ul className="p-0 my-5">
                     <li>
-                      <Link href="/">
-                        <a className="nav-link js-scroll-trigger">Home</a>
-                      </Link>
+                      <Link href="/">Home</Link>
                     </li>
                     <li>
-                      <Link href="/ncdc">
-                        <a className="nav-link js-scroll-trigger">NCDC</a>
-                      </Link>
+                      <Link href="/ncdc">NCDC</Link>
                     </li>
                     <li>
-                      <Link href="/infographics">
-                        <a className="nav-link js-scroll-trigger">
-                          Infographics
-                        </a>
-                      </Link>
+                      <Link href="/infographics">Infographics</Link>
                     </li>
                     <li>
-                      <Link href="/news">
-                        <a className="nav-link js-scroll-trigger">News</a>
-                      </Link>
+                      <Link href="/news">News</Link>
                     </li>
                     <li>
-                      <Link href="/faq">
-                        <a className="nav-link js-scroll-trigger">FAQs</a>
-                      </Link>
+                      <Link href="/faq">FAQs</Link>
                     </li>
                   </ul>
                   <span className="d-block">
@@ -78,7 +66,6 @@ export default function Appbar() {
         </Box>
       </Flex>
       <style jsx>{`
-      
         .Toggler {
           background: transparent;
           border: none;
