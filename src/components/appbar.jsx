@@ -1,68 +1,96 @@
-import React from "react";
-import { Flex, Icon, IconButton, Box, Link } from "@chakra-ui/core";
+import React, { useState } from "react";
+import {
+  Flex,
+  Icon,
+  IconButton,
+  Box,
+  Text,
+  Stack,
+  Heading,
+  Button,
+} from "@chakra-ui/core";
+import Link from "next/link";
 import { RiMenu2Line } from "react-icons/ri";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiLogOut } from "react-icons/fi";
 import { IoIosOptions } from "react-icons/io";
+import FadeIn from "react-fade-in";
 export default function Appbar() {
+  const [open, setOpen] = useState(false);
   return (
     <>
-      <Flex justify="space-between" px="5%" py={10}>
+      <Flex justify="space-between" pl={("4%", "5%")} pr="5%" pt={10} pb={4}>
         <Box className="openMenu">
-          <input type="checkbox" className="toggler" />
+          <input
+            type="checkbox"
+            onClick={() => setOpen(!open)}
+            className="toggler"
+          />
           <div className="hamburger">
             <div></div>
           </div>
-          {
-            // <Box size={8} as={RiMenu2Line}></Box>
-          }
-          {
-            <div className="menu">
-              <div>
-                <div>
-                  <ul className="p-0 my-5">
-                    <li>
-                      <Link href="/">Home</Link>
-                    </li>
-                    <li>
-                      <Link href="/ncdc">NCDC</Link>
-                    </li>
-                    <li>
-                      <Link href="/infographics">Infographics</Link>
-                    </li>
-                    <li>
-                      <Link href="/news">News</Link>
-                    </li>
-                    <li>
-                      <Link href="/faq">FAQs</Link>
-                    </li>
-                  </ul>
-                  <span className="d-block">
-                    <span className="text-secondary"> adedaniel</span>{" "}
-                    <a target="_blank" href="https://github.com/adedaniel">
-                      <i
-                        className="fa text-secondary fa-github"
-                        aria-hidden="true"
-                      ></i>
-                    </a>
-                    &nbsp;{" "}
-                    <a
-                      target="_blank"
-                      href="https://twitter.com/ijebu_developer"
-                    >
-                      <i
-                        className="fa text-secondary fa-twitter"
-                        aria-hidden="true"
-                      ></i>
-                    </a>
-                  </span>
-                </div>
-              </div>
+          <div className="menu">
+            <div>
+              <Box h="100vh" w="100vw">
+                <Box px={("8%", "8%")} pt={10}>
+                  <Flex justify="flex-end">
+                    <Button variant="ghost" rightIcon={FiLogOut} fontSize="xl">
+                      Logout
+                    </Button>
+                  </Flex>
+                  <Stack textAlign={["left", "left", "center"]} my={16}>
+                    {open && (
+                      <FadeIn transitionDuration={800} delay={150}>
+                        <Heading
+                          mb={[8, 8, 8, 6]}
+                          fontSize={["4xl", "4xl", "5xl"]}
+                        >
+                          <Link href="/">
+                            <a> Home</a>
+                          </Link>
+                        </Heading>
+                        <Heading
+                          mb={[8, 8, 8, 6]}
+                          fontSize={["4xl", "4xl", "5xl"]}
+                        >
+                          <Link href="/jobs">
+                            <a>All Jobs</a>
+                          </Link>
+                        </Heading>
+                        <Heading
+                          mb={[8, 8, 8, 6]}
+                          fontSize={["4xl", "4xl", "5xl"]}
+                        >
+                          <Link href="/tweets">
+                            <a>Job Tweets</a>
+                          </Link>
+                        </Heading>
+                        <Heading
+                          mb={[8, 8, 8, 6]}
+                          fontSize={["4xl", "4xl", "5xl"]}
+                        >
+                          <Link href="/saved">
+                            <a>Saved Jobs</a>
+                          </Link>
+                        </Heading>
+                        <Heading
+                          mb={[8, 8, 8, 6]}
+                          fontSize={["4xl", "4xl", "5xl"]}
+                        >
+                          <Link href="/settings">
+                            <a>Preferences</a>
+                          </Link>
+                        </Heading>
+                      </FadeIn>
+                    )}
+                  </Stack>
+                </Box>
+              </Box>
             </div>
-          }
+          </div>
         </Box>
         <Box display="flex" flexDirection="row">
-          <Box mx={4} size={8} as={FiSearch}></Box>
-          <Box ml={4} size={8} as={IoIosOptions}></Box>
+          <Box mx={4} size={[6, 8]} as={FiSearch}></Box>
+          <Box ml={4} size={[6, 8]} as={IoIosOptions}></Box>
         </Box>
       </Flex>
       <style jsx>{`
@@ -81,7 +109,7 @@ export default function Appbar() {
           position: absolute;
 
           width: 3rem;
-          height: 2rem;
+          height: 1.5rem;
           z-index: 3;
           opacity: 0;
           cursor: pointer;
@@ -90,7 +118,7 @@ export default function Appbar() {
         .hamburger {
           position: absolute;
           width: 3rem;
-          height: 2rem;
+          height: 1.5rem;
           z-index: 2;
           display: flex;
           align-items: center;
@@ -104,17 +132,17 @@ export default function Appbar() {
           width: 60%;
           height: 3px;
           border-radius: 1.5px;
-          background-color: #1a202c;
+          background-color: black;
           transition: 0.4s;
         }
 
         .hamburger > div:before {
           content: "";
           position: absolute;
-          width: 2.5rem;
+          width: 2.4rem;
           height: 3px;
           border-radius: 1.5px;
-          background-color: #1a202c;
+          background-color: black;
           top: -10px;
           left: 0;
           transition: 0.4s;
@@ -126,7 +154,7 @@ export default function Appbar() {
           width: 0;
           height: 3px;
           border-radius: 1.5px;
-          background-color: #1a202c;
+          background-color: black;
           top: 10px;
           left: 0;
           transition: 0.4s;
