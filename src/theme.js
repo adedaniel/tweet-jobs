@@ -17,7 +17,7 @@ const theme = {
     primary: "#65b77a",
   },
   fonts: {
-    body: "Hind Siliguri, sans-serif",
+    body: "Inter, sans-serif",
     heading: "Raleway, sans-serif",
     mono: "Raleway, sans-serif",
   },

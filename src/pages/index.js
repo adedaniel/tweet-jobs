@@ -37,7 +37,7 @@ import { CTA } from "../components/CTA";
 import { Footer } from "../components/Footer";
 import Appbar from "../components/appbar";
 import Axios from "axios";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import JobDrawer from "../components/job-drawer";
 
 function Index() {
   const [jobs, setJobs] = useState([]);
@@ -45,32 +45,33 @@ function Index() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tweetJobs, setTweetJobs] = useState([]);
   const [dragDown, setDragDown] = useState(false);
+  const [selectedJob, setSelectedJob] = useState({});
   // const [rowWidth, setRowWidth] = useState(
   //   typeof document !== "undefined" &&
   //     (1 / 1.7) * document.querySelector("body").clientWidth
   // );
-  // useEffect(() => {
-  //   Axios.get("https://seejobs.herokuapp.com/api/v1/jobs")
-  //     .then((result) => {
-  //       // console.log(result.data);
-  //       setJobs(result.data.results);
-  //     })
-  //     .catch((error) => {
-  //       // setIsLoading(false);
+  useEffect(() => {
+    Axios.get("https://seejobs.herokuapp.com/api/v1/jobs")
+      .then((result) => {
+        // console.log(result.data);
+        setJobs(result.data.results);
+      })
+      .catch((error) => {
+        // setIsLoading(false);
 
-  //       console.log(error.response);
-  //     });
-  //   Axios.get("https://seejobs.herokuapp.com/api/v1/tweetjobs")
-  //     .then((result) => {
-  //       // console.log(result.data);
-  //       setTweetJobs(result.data.results);
-  //     })
-  //     .catch((error) => {
-  //       // setIsLoading(false);
+        console.log(error.response);
+      });
+    Axios.get("https://seejobs.herokuapp.com/api/v1/tweetjobs")
+      .then((result) => {
+        // console.log(result.data);
+        setTweetJobs(result.data.results);
+      })
+      .catch((error) => {
+        // setIsLoading(false);
 
-  //       console.log(error.response);
-  //     });
-  // }, []);
+        console.log(error.response);
+      });
+  }, []);
 
   // let rowWidth;
   // if (typeof document !== "undefined") {
@@ -137,7 +138,7 @@ function Index() {
           <Heading my={0} fontWeight="extrabold" fontSize={["4xl", "5xl"]}>
             Your Jobs
           </Heading>
-          <Text fontWeight="bold" my={1} fontSize="lg">
+          <Text my={1} fontSize="lg">
             Saved Jobs
           </Text>
 
@@ -235,7 +236,7 @@ function Index() {
               </Box>
             ))}
           </Flex>
-          <Text fontWeight="bold" pt={8} pb={3} fontSize="lg">
+          <Text pt={8} pb={0} fontSize="lg">
             Recently Added
           </Text>
 
@@ -246,58 +247,37 @@ function Index() {
                 backgroundColor="white"
                 shadow="none"
                 onClick={onOpen}
+                cursor="pointer"
                 borderRadius={12}
               >
-                <Flex>
-                  <Box mr="16px">
+                <Flex justify="space-between">
+                  <Flex w="calc(100vw - 210px)">
                     <Image
                       src="https://picsum.photos/200"
                       size={10}
+                      mr="16px"
                       rounded={10}
                       alt="sender-image"
                     ></Image>
-                  </Box>
-                  <Box width="88%">
-                    <Heading isTruncated fontSize="lg">
-                      New Job Title
-                    </Heading>
-                    <Text color="gray.500" fontSize="sm" isTruncated>
-                      by simplytammy
-                    </Text>
-                  </Box>
+                    <Box
+                      w={[
+                        "calc(100vw - 210px)",
+                        "calc(100vw - 210px)",
+                        "initial",
+                      ]}
+                    >
+                      <Heading isTruncated fontSize="lg">
+                        New Job Title Opportunity
+                      </Heading>
+
+                      <Text color="gray.500" fontSize="sm" isTruncated>
+                        by simplytammy
+                      </Text>
+                    </Box>
+                  </Flex>
                   <Box pt={2}>
                     <Text fontSize="sm" isTruncated>
-                      2 hours ago
-                    </Text>
-                  </Box>
-                </Flex>
-              </Box>
-              <Box
-                p={4}
-                backgroundColor="white"
-                shadow="none"
-                borderRadius={12}
-              >
-                <Flex>
-                  <Box mr="16px">
-                    <Image
-                      src="https://picsum.photos/200"
-                      size={10}
-                      rounded={10}
-                      alt="sender-image"
-                    ></Image>
-                  </Box>
-                  <Box width="88%">
-                    <Heading isTruncated fontSize="lg">
-                      New Job Title
-                    </Heading>
-                    <Text color="gray.500" fontSize="sm" isTruncated>
-                      by simplytammy
-                    </Text>
-                  </Box>
-                  <Box pt={2}>
-                    <Text fontSize="sm" isTruncated>
-                      2 hours ago
+                      2 minutes
                     </Text>
                   </Box>
                 </Flex>
@@ -305,12 +285,11 @@ function Index() {
             </Stack>
           </Box>
 
-          <Text fontWeight="bold" mt={8} fontSize="lg">
+          <Text mt={8} fontSize="lg">
             Other Job Tweets
           </Text>
 
           <Flex
-            pt={1}
             style={{ flexFlow: "nowrap" }}
             overflowX="scroll"
             overflowY="hidden"
@@ -318,6 +297,7 @@ function Index() {
             className="savedJobsRow"
             ml="-7%"
             px="7%"
+            pt={1}
           >
             {tweetJobs.slice(0, 7).map((tweet, index) => (
               <Box
@@ -368,28 +348,38 @@ function Index() {
                 p={4}
                 backgroundColor="white"
                 shadow="none"
+                onClick={onOpen}
+                cursor="pointer"
                 borderRadius={12}
               >
-                <Flex>
-                  <Box mr="16px">
+                <Flex justify="space-between">
+                  <Flex w="calc(100vw - 210px)">
                     <Image
                       src="https://picsum.photos/200"
                       size={10}
+                      mr="16px"
                       rounded={10}
                       alt="sender-image"
                     ></Image>
-                  </Box>
-                  <Box width="88%">
-                    <Heading isTruncated fontSize="md">
-                      New Job Title
-                    </Heading>
-                    <Text color="gray.500" fontSize="xs" isTruncated>
-                      by simplytammy
-                    </Text>
-                  </Box>
+                    <Box
+                      w={[
+                        "calc(100vw - 210px)",
+                        "calc(100vw - 210px)",
+                        "initial",
+                      ]}
+                    >
+                      <Heading isTruncated fontSize="lg">
+                        New Job Title Opportunity
+                      </Heading>
+
+                      <Text color="gray.500" fontSize="sm" isTruncated>
+                        by simplytammy
+                      </Text>
+                    </Box>
+                  </Flex>
                   <Box pt={2}>
                     <Text fontSize="sm" isTruncated>
-                      2 hours ago
+                      2 minutes
                     </Text>
                   </Box>
                 </Flex>
@@ -397,117 +387,7 @@ function Index() {
             </Stack>
           </Box>
         </Stack>
-        <Drawer
-          initialFocusRef={referenceField}
-          placement="bottom"
-          onClose={onClose}
-          isOpen={isOpen}
-        >
-          <DrawerOverlay />
-          <DrawerContent
-            ref={referenceField}
-            borderRadius={["20px 20px 0 0", "20px 20px 0 0", "30px 30px 0 0"]}
-            height={["85%", "85%", "85%", "75%"]}
-          >
-            <DrawerCloseButton top={4} right={[4, 8]} />
-            <DrawerHeader borderBottomWidth="0px">
-              <Box
-                height="6px"
-                width="50%"
-                margin="0 auto"
-                cursor={"row-resize"}
-                onClick={onClose}
-                backgroundColor="gray.200"
-                rounded={8}
-              ></Box>
-            </DrawerHeader>
-            <DrawerBody px={["6%", "20%"]}>
-              <Box mt={4} textAlign="center">
-                <Avatar
-                  name={"job name"}
-                  position="inherit"
-                  width={[16, 20]}
-                  height={[16, 20]}
-                  src={"https://bit.ly/dan-abramov"}
-                />
-                <Heading mt={3} fontWeight="bold" fontSize={["xl", "2xl"]}>
-                  A full time job description about a new job opening
-                </Heading>
-
-                <Stack justify="center" isInline spacing={5} my={4}>
-                  <Badge
-                    variant="subtle"
-                    variantColor="green"
-                    px={3}
-                    pt="6px"
-                    height={8}
-                    fontSize="sm"
-                  >
-                    Remote
-                  </Badge>
-                </Stack>
-
-                <Box>
-                  <Stack justifyContent="center" isInline spacing={3}>
-                    <Avatar
-                      name={"job author"}
-                      position="inherit"
-                      width={6}
-                      height={6}
-                      src={"https://bit.ly/dan-abramov"}
-                    />
-
-                    <Text color="gray.500">
-                      <Link
-                        textDecoration="none !important"
-                        href="https://chakra-ui.com"
-                        isExternal
-                      >
-                        Dan_Abramov
-                      </Link>
-                    </Text>
-                  </Stack>
-                </Box>
-              </Box>
-              <Box mt={8}>
-                <Text fontSize="lg">
-                  We are looking for a few dudes who are interested in working
-                  with us for a huge project in view of an analytics company
-                  based in Lagos State.
-                </Text>
-              </Box>
-            </DrawerBody>
-            <DrawerFooter
-              px={["6%", "20%"]}
-              justifyContent="center"
-              pb={[8, 16]}
-            >
-              <Stack display="flex" justify="center" spacing={3}>
-                <Box>
-                  <IconButton
-                    variant="ghost"
-                    aria-label="Save Job"
-                    fontSize="20px"
-                    icon={MdFavoriteBorder}
-                  />
-                  <Button
-                    as="a"
-                    target="_blank"
-                    href="https://chakra-ui.com"
-                    variant="solid"
-                    variantColor="primary"
-                    width="3xs"
-                    height={12}
-                    color="white"
-                    backgroundColor="primary"
-                  >
-                    Apply
-                  </Button>
-                </Box>
-              </Stack>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
+        <JobDrawer isOpen={isOpen} onClose={onClose} />
         <br />
         <br />
         <br />

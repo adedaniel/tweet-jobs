@@ -33,7 +33,12 @@ export default function Appbar() {
               <Box h="100vh" w="100vw">
                 <Box px={("8%", "8%")} pt={10}>
                   <Flex justify="flex-end">
-                    <Button variant="ghost" rightIcon={FiLogOut} fontSize="xl">
+                    <Button
+                      fontWeight="normal"
+                      variant="ghost"
+                      rightIcon={FiLogOut}
+                      fontSize="xl"
+                    >
                       Logout
                     </Button>
                   </Flex>
@@ -88,9 +93,9 @@ export default function Appbar() {
             </div>
           </div>
         </Box>
-        <Box display="flex" flexDirection="row">
-          <Box mx={4} size={[6, 8]} as={FiSearch}></Box>
-          <Box ml={4} size={[6, 8]} as={IoIosOptions}></Box>
+        <Box mt="-4px" display="flex" flexDirection="row">
+          <Box mx={4} size={8} as={FiSearch}></Box>
+          <Box ml={4} size={8} as={IoIosOptions}></Box>
         </Box>
       </Flex>
       <style jsx>{`
@@ -163,7 +168,10 @@ export default function Appbar() {
         .toggler:checked + .hamburger > div {
           transform: rotate(135deg);
         }
-
+        .toggler:checked,
+        .toggler:checked + .hamburger {
+          position: fixed;
+        }
         .toggler:checked:hover + .hamburger > div {
           transform: rotate(225deg);
         }
