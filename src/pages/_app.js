@@ -24,6 +24,21 @@ function MyApp({ Component, pageProps }) {
         body {
           color: black;
         }
+        .savedJobsRow::-webkit-scrollbar {
+          width: 0px !important;
+          height: 0px !important;
+          background-color: lightgray;
+          border-radius: 16px;
+        }
+
+        .savedJobsRow::-webkit-scrollbar-thumb {
+          background: rgb(226, 230, 226);
+          border-radius: 16px;
+        }
+
+        .savedJobsRow::-webkit-scrollbar-thumb:hover {
+          background: gray;
+        }
       `}</style>
     </>
   );
