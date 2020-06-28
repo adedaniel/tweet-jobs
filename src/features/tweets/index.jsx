@@ -17,8 +17,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
 
-export default function JobsComponent() {
-  const [jobs, setJobs] = useState([]);
+export default function TweetsComponent() {
+  const [jobTweets, setJobTweets] = useState([]);
   const [nextEndpoint, setNextEndpoint] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasMore, setHasMore] = useState(true);
@@ -27,9 +27,9 @@ export default function JobsComponent() {
     fetchFirstPageJobs();
   }, []);
   const fetchFirstPageJobs = () => {
-    Axios.get(URL + "/api/v1/jobs")
+    Axios.get(URL + "/api/v1/tweetjobs")
       .then((result) => {
-        setJobs(result.data.results);
+        setJobTweets(result.data.results);
         setNextEndpoint(result.data.next);
       })
       .catch((error) => {
@@ -48,7 +48,7 @@ export default function JobsComponent() {
     }
     Axios.get(URL + nextEndpoint)
       .then((result) => {
-        setJobs(jobs.concat(result.data.results));
+        setJobTweets(jobTweets.concat(result.data.results));
         setNextEndpoint(result.data.next);
       })
       .catch((error) => {
@@ -64,14 +64,14 @@ export default function JobsComponent() {
           mt="-48px"
           mb="48px"
         >
-          Jobs
+          Job Tweets
         </Heading>
 
         <Stack pl="6%">
           <Box pr="6%">
             <Stack spacing={4}>
               <InfiniteScroll
-                dataLength={jobs.length} //This is important field to render the next data
+                dataLength={jobTweets.length} //This is important field to render the next data
                 next={fetchMoreData}
                 hasMore={hasMore}
                 loader={
@@ -103,62 +103,52 @@ export default function JobsComponent() {
                 }
                 pullDownToRefreshThreshold={50}
               >
-                {jobs.map((job, index) => (
+                {jobTweets.map((tweet) => (
                   <Box
-                    key={index}
+                    key={tweet.id}
+                    p={4}
+                    backgroundColor="white"
                     shadow="none"
-                    onClick={() => openDrawer(job)}
-                    cursor="pointer"
                     mb={4}
+                    onClick={() => openDrawer(tweet)}
+                    cursor="pointer"
+                    borderRadius={12}
                   >
-                    <Flex>
-                      <Avatar
-                        src={job.imageUrl}
-                        width={10}
-                        height={10}
-                        position="inherit"
-                        name={job.author}
-                        mr={4}
-                        mt={4}
-                        rounded={10}
-                        alt="sender-image"
-                      ></Avatar>
-                      <Flex
-                        justify="space-between"
-                        p={4}
-                        w="100%"
-                        shadow="none"
-                        backgroundColor="white"
-                        borderRadius={12}
-
-                        // w="calc(100vw - 210px)"
-                      >
+                    <Flex justify="space-between">
+                      <Flex w="calc(100vw - 210px)">
+                        <Avatar
+                          src={tweet.profile_image_url}
+                          width={10}
+                          height={10}
+                          position="inherit"
+                          name={tweet.author}
+                          mr="16px"
+                          rounded={10}
+                          alt="sender-image"
+                        ></Avatar>
                         <Box
                           w={[
                             "calc(100vw - 210px)",
                             "calc(100vw - 210px)",
-                            "initial",
+                            "calc(100vw - 352px)",
                           ]}
                         >
-                          <Heading isTruncated fontSize="lg">
-                            {job.likelyJobNames.replace(/(.{58})..+/, "$1…")}
-                          </Heading>
+                          <Text isTruncated fontSize="md">
+                            {tweet.cleanedTweet}
+                          </Text>
 
                           <Text color="gray.500" fontSize="sm" isTruncated>
-                            by {job.author}
-                          </Text>
-                        </Box>
-
-                        <Box pt={2}>
-                          <Text fontSize="sm" isTruncated>
-                            {job.tweetDate && (
-                              <Moment fromNow ago={[true, false]}>
-                                {job.tweetDate}
-                              </Moment>
-                            )}
+                            by {tweet.author}
                           </Text>
                         </Box>
                       </Flex>
+                      <Box pt={2}>
+                        <Text fontSize="sm" isTruncated>
+                          <Moment fromNow ago={[true, false]}>
+                            {tweet.tweetDate}
+                          </Moment>
+                        </Text>
+                      </Box>
                     </Flex>
                   </Box>
                 ))}
