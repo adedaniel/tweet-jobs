@@ -7,7 +7,9 @@ import { Box } from "@chakra-ui/core";
 function Index() {
   return (
     <>
-      <Head>See Jobs | Home</Head>
+      <Head>
+        <title>See Jobs | Home</title>
+      </Head>
       <Box backgroundColor="gray.50" pb={10}>
         <Appbar />
         <HomeComponent />

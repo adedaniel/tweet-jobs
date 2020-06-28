@@ -75,6 +75,7 @@ export default function HomeComponent() {
                   p={4}
                   pt={4}
                   cursor="pointer"
+                  wordBreak="break-word"
                   transition=".7s all"
                   onClick={() => openDrawer(job)}
                   border="2px solid"
@@ -125,7 +126,7 @@ export default function HomeComponent() {
             </Flex>
           </div>
 
-          <Text pt={8} pb={0} fontSize="lg">
+          <Text pt={8} pb={2} fontSize="lg">
             Recently Added
           </Text>
 
@@ -134,25 +135,32 @@ export default function HomeComponent() {
               {jobs.slice(0, 4).map((job) => (
                 <Box
                   key={job.id}
-                  p={4}
-                  backgroundColor="white"
                   shadow="none"
                   onClick={() => openDrawer(job)}
                   cursor="pointer"
-                  borderRadius={12}
                 >
-                  <Flex justify="space-between">
-                    <Flex w="calc(100vw - 210px)">
-                      <Avatar
-                        src={job.imageUrl}
-                        width={10}
-                        height={10}
-                        position="inherit"
-                        name={job.author}
-                        mr="16px"
-                        rounded={10}
-                        alt="sender-image"
-                      ></Avatar>
+                  <Flex>
+                    <Avatar
+                      src={job.imageUrl}
+                      width={10}
+                      height={10}
+                      position="inherit"
+                      name={job.author}
+                      mr={4}
+                      mt={4}
+                      rounded={10}
+                      alt="sender-image"
+                    ></Avatar>
+                    <Flex
+                      justify="space-between"
+                      p={4}
+                      w="100%"
+                      shadow="none"
+                      backgroundColor="white"
+                      borderRadius={12}
+
+                      // w="calc(100vw - 210px)"
+                    >
                       <Box
                         w={[
                           "calc(100vw - 210px)",
@@ -168,14 +176,15 @@ export default function HomeComponent() {
                           by {job.author}
                         </Text>
                       </Box>
+
+                      <Box pt={2}>
+                        <Text fontSize="sm" isTruncated>
+                          <Moment fromNow ago={[true, false]}>
+                            {job.tweetDate}
+                          </Moment>
+                        </Text>
+                      </Box>
                     </Flex>
-                    <Box pt={2}>
-                      <Text fontSize="sm" isTruncated>
-                        <Moment fromNow ago={[true, false]}>
-                          {job.tweetDate}
-                        </Moment>
-                      </Text>
-                    </Box>
                   </Flex>
                 </Box>
               ))}
@@ -202,6 +211,7 @@ export default function HomeComponent() {
                   mr="16px"
                   key={tweet.id}
                   display="block"
+                  wordBreak="break-word"
                   p={4}
                   cursor="pointer"
                   onClick={() => openDrawer(tweet)}
@@ -272,11 +282,11 @@ export default function HomeComponent() {
                         w={[
                           "calc(100vw - 210px)",
                           "calc(100vw - 210px)",
-                          "initial",
+                          "calc(100vw - 352px)",
                         ]}
                       >
                         <Text isTruncated fontSize="lg">
-                          {tweet.cleanedTweet.replace(/(.{58})..+/, "$1…")}
+                          {tweet.cleanedTweet}
                         </Text>
 
                         <Text color="gray.500" fontSize="sm" isTruncated>
