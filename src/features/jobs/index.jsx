@@ -46,8 +46,6 @@ export default function JobsComponent() {
       setHasMore(false);
       return;
     }
-    // a fake async api call like which sends
-    // 20 more records in .5 secs
     Axios.get(URL + nextEndpoint)
       .then((result) => {
         setJobs(jobs.concat(result.data.results));
@@ -57,7 +55,6 @@ export default function JobsComponent() {
         console.log(error.response);
       });
   };
-
   return (
     <>
       <Box>
@@ -99,7 +96,7 @@ export default function JobsComponent() {
                     &#8593; Release to refresh
                   </Text>
                 }
-                pullDownToRefreshThreshold={150}
+                pullDownToRefreshThreshold={50}
               >
                 {jobs.map((job, index) => (
                   <Box
@@ -149,9 +146,11 @@ export default function JobsComponent() {
 
                         <Box pt={2}>
                           <Text fontSize="sm" isTruncated>
-                            <Moment fromNow ago={[true, false]}>
-                              {job.tweetDate}
-                            </Moment>
+                            {job.tweetDate && (
+                              <Moment fromNow ago={[true, false]}>
+                                {job.tweetDate}
+                              </Moment>
+                            )}
                           </Text>
                         </Box>
                       </Flex>

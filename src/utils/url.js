@@ -1,1 +1,2 @@
-export const URL = "http://seejobs.herokuapp.com";
+export const URL =
+  "https://cors-anywhere.herokuapp.com/" + "http://seejobs.herokuapp.com";

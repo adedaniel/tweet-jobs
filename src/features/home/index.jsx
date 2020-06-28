@@ -12,6 +12,7 @@ import {
 import Moment from "react-moment";
 import Axios from "axios";
 import JobDrawer from "../../components/job-drawer";
+import { URL } from "../../utils/url";
 
 export default function HomeComponent() {
   const [jobs, setJobs] = useState([]);
@@ -19,14 +20,14 @@ export default function HomeComponent() {
   const [tweetJobs, setTweetJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState({});
   useEffect(() => {
-    Axios.get("https://seejobs.herokuapp.com/api/v1/jobs")
+    Axios.get(URL + "/api/v1/jobs")
       .then((result) => {
         setJobs(result.data.results);
       })
       .catch((error) => {
         console.log(error.response);
       });
-    Axios.get("https://seejobs.herokuapp.com/api/v1/tweetjobs")
+    Axios.get(URL + "/api/v1/tweetjobs")
       .then((result) => {
         setTweetJobs(result.data.results);
       })
