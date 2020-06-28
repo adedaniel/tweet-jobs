@@ -36,13 +36,14 @@ export default function Appbar() {
                     <Button
                       fontWeight="normal"
                       variant="ghost"
+                      position="fixed"
                       rightIcon={FiLogOut}
                       fontSize="xl"
                     >
                       Logout
                     </Button>
                   </Flex>
-                  <Stack textAlign={["left", "left", "center"]} my={16}>
+                  <Stack textAlign={["left", "left", "center"]} my={24}>
                     {open && (
                       <FadeIn transitionDuration={800} delay={150}>
                         <Heading
@@ -187,6 +188,7 @@ export default function Appbar() {
           position: fixed;
           top: 0;
           left: 0;
+          z-index: 1;
           width: 100%;
           height: 100%;
           visibility: hidden;

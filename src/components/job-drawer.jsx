@@ -33,6 +33,7 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
     author,
     urls,
   } = selectedJob;
+
   return (
     <Drawer
       initialFocusRef={referenceField}
@@ -108,10 +109,14 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
                     </Link>
                   </Text>
                 </Stack>
-                <Text> | </Text>
-                <Text>
-                  <Moment fromNow>{tweetDate}</Moment>
-                </Text>
+                {tweetDate && (
+                  <>
+                    <Text> | &nbsp;</Text>
+                    <Text>
+                      <Moment fromNow>{tweetDate}</Moment>
+                    </Text>
+                  </>
+                )}
               </Stack>
             </Box>
           </Box>
