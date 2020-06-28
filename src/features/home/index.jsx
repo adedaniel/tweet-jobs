@@ -254,7 +254,7 @@ export default function HomeComponent() {
             </Flex>
           </div>
 
-          <Box mt={2} pr="6%">
+          <Box mt={4} pr="6%">
             <Stack spacing={3}>
               {tweetJobs.slice(8, 13).map((tweet) => (
                 <Box
@@ -285,7 +285,7 @@ export default function HomeComponent() {
                           "calc(100vw - 352px)",
                         ]}
                       >
-                        <Text isTruncated fontSize="lg">
+                        <Text isTruncated fontSize="md">
                           {tweet.cleanedTweet}
                         </Text>
 

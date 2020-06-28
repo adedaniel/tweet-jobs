@@ -5132,6 +5132,13 @@ react-id-swiper@^4.0.0:
   dependencies:
     object-assign "^4.1.1"
 
+react-infinite-scroll-component@^5.0.5:
+  version "5.0.5"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-5.0.5.tgz#6e4b2bd53f5da0ec3d46eca9661b086dbb7fd2b2"
+  integrity sha512-Xsqqo6gp+mtPbJe/j3hRZrVLFT+gA5FpE4i21HsMJo87vrqVSda8PLOeH+Wizp6SIW8MM1NaYvF7lblfG5YeCA==
+  dependencies:
+    throttle-debounce "^2.1.0"
+
 react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -5929,6 +5936,11 @@ thousands@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/thousands/-/thousands-1.0.1.tgz#59eb5b6d179ab20a42d9d1bdd05c2ca07fbc2d94"
   integrity sha1-WetbbReasgpC2dG90FwsoH+8LZQ=
+
+throttle-debounce@^2.1.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.2.1.tgz#fbd933ae6793448816f7d5b3cae259d464c98137"
+  integrity sha512-i9hAVld1f+woAiyNGqWelpDD5W1tpMroL3NofTz9xzwq6acWBlO2dC8k5EFSZepU6oOINtV5Q3aSPoRg7o4+fA==
 
 through2@^2.0.0:
   version "2.0.5"
