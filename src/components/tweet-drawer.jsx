@@ -19,20 +19,20 @@ import {
 } from "@chakra-ui/core";
 import Moment from "react-moment";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-export default function JobDrawer({ isOpen, onClose, selectedJob }) {
+export default function TweetDrawer({ isOpen, onClose, selectedTweet }) {
   const referenceField = useRef();
   const {
-    imageUrl,
+    // imageUrl,
     isRemote,
-    likelyJobNames,
+    // likelyJobNames,
     profile_image_url,
     id,
     tweetID,
     cleanedTweet,
     tweetDate,
     author,
-    urls,
-  } = selectedJob;
+    // urls,
+  } = selectedTweet;
   return (
     <Drawer
       initialFocusRef={referenceField}
@@ -65,10 +65,10 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
               position="inherit"
               width={[16, 20]}
               height={[16, 20]}
-              src={urls ? imageUrl : profile_image_url}
+              src={profile_image_url}
             />
             <Heading mt={3} mb={2} fontWeight="bold" fontSize={["xl", "2xl"]}>
-              {likelyJobNames}
+              {cleanedTweet}
             </Heading>
             {isRemote === "true" && (
               <Stack justify="center" isInline spacing={5} my={4}>
@@ -88,15 +88,13 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
             <Box>
               <Stack color="gray.500" isInline justifyContent="center">
                 <Stack isInline spacing={3}>
-                  {urls && (
-                    <Avatar
-                      name={author}
-                      position="inherit"
-                      width={6}
-                      height={6}
-                      src={profile_image_url}
-                    />
-                  )}
+                  <Avatar
+                    name={author}
+                    position="inherit"
+                    width={6}
+                    height={6}
+                    src={profile_image_url}
+                  />
 
                   <Text>
                     <Link
@@ -104,7 +102,7 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
                       href={`https://twitter.com/${author}`}
                       isExternal
                     >
-                      @{author}
+                      {author}
                     </Link>
                   </Text>
                 </Stack>
@@ -130,11 +128,7 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
             <Button
               as="a"
               target="_blank"
-              href={
-                urls
-                  ? urls.slice(0, -1)
-                  : `https://twitter.com/${author}/status/${tweetID}`
-              }
+              href={`https://twitter.com/${author}/status/${tweetID}`}
               variant="solid"
               variantColor="primary"
               width="3xs"
