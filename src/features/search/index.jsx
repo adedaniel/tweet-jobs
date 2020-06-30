@@ -39,6 +39,7 @@ export default function SearchComponent() {
   const [selectedJob, setSelectedJob] = useState({});
   const [filterName, setFilterName] = useState("");
   const [toFilterRemote, setToFilterRemote] = useState(false);
+  const [timeDifference, setTimeDifference] = useState(0);
   const [showJobResults, setShowJobResults] = useState(true);
 
   useEffect(() => {
@@ -126,12 +127,26 @@ export default function SearchComponent() {
       return job;
     }
   };
+  const filterTimeDifference = (job) => {
+    // To filter the array by time difference
+    return (
+      new Date().getHours() - new Date(job.tweetDate).getHours() >
+      timeDifference
+    );
+  };
+  // jobs.length !== 0 &&
+  //   console.log(
+  //     new Date().getHours() - new Date(jobs[1].tweetDate).getHours(),
 
+  //     timeDifference
+  //   );
   useEffect(() => {
     if (jobTweets.length !== 0 && hasMoreTweets) {
       if (
-        jobTweets.filter(filterSearch).filter(filterRemote).length <
-        tweetsDisplayLimit
+        jobTweets
+          .filter(filterSearch)
+          .filter(filterTimeDifference)
+          .filter(filterRemote).length < tweetsDisplayLimit
       ) {
         setIsLoadingMoreTweets(true);
         fetchMoreTweetsData();
@@ -139,12 +154,21 @@ export default function SearchComponent() {
         setIsLoadingMoreTweets(false);
       }
     }
-  }, [filterName, toFilterRemote, tweetsDisplayLimit, nextTweetsEndpoint]);
+  }, [
+    filterName,
+    toFilterRemote,
+    tweetsDisplayLimit,
+    timeDifference,
+    nextTweetsEndpoint,
+  ]);
 
   useEffect(() => {
     if (jobs.length !== 0 && hasMoreJobs) {
       if (
-        jobs.filter(filterSearch).filter(filterRemote).length < jobsDisplayLimit
+        jobs
+          .filter(filterSearch)
+          .filter(filterTimeDifference)
+          .filter(filterRemote).length < jobsDisplayLimit
       ) {
         setIsLoadingMoreJobs(true);
         fetchMoreJobsData();
@@ -152,7 +176,13 @@ export default function SearchComponent() {
         setIsLoadingMoreJobs(false);
       }
     }
-  }, [filterName, toFilterRemote, jobsDisplayLimit, nextJobsEndpoint]);
+  }, [
+    filterName,
+    toFilterRemote,
+    jobsDisplayLimit,
+    timeDifference,
+    nextJobsEndpoint,
+  ]);
 
   return (
     <>
@@ -187,19 +217,21 @@ export default function SearchComponent() {
               <Select
                 zIndex="0 !important"
                 variant="filled"
+                value={timeDifference}
+                onChange={(e) => setTimeDifference(e.target.value)}
                 placeholder="Choose Time"
               >
-                <option value="option1">From 1 hour ago</option>
-                <option value="option2">From 2 hours ago</option>
-                <option value="option3">From 3 hours ago</option>
-                <option value="option3">From 4 hours ago</option>
-                <option value="option3">From 5 hours ago</option>
-                <option value="option3">From 6 hours ago</option>
-                <option value="option3">From 7 hours ago</option>
-                <option value="option3">From 8 hours ago</option>
-                <option value="option3">From 9 hours ago</option>
-                <option value="option3">From 10 hours ago</option>
-                <option value="option3">From 11 hours ago</option>
+                <option value={1}>From 1 hour ago</option>
+                <option value={2}>From 2 hours ago</option>
+                <option value={3}>From 3 hours ago</option>
+                <option value={4}>From 4 hours ago</option>
+                <option value={5}>From 5 hours ago</option>
+                <option value={6}>From 6 hours ago</option>
+                <option value={7}>From 7 hours ago</option>
+                <option value={8}>From 8 hours ago</option>
+                <option value={9}>From 9 hours ago</option>
+                <option value={10}>From 10 hours ago</option>
+                <option value={11}>From 11 hours ago</option>
               </Select>
               <Button
                 w="2xs"
@@ -238,6 +270,7 @@ export default function SearchComponent() {
                   {jobs
                     .filter(filterSearch)
                     .filter(filterRemote)
+                    .filter(filterTimeDifference)
                     .map((job, index) => (
                       <Box
                         key={index}
@@ -333,6 +366,7 @@ export default function SearchComponent() {
                   {jobTweets
                     .filter(filterSearch)
                     .filter(filterRemote)
+                    .filter(filterTimeDifference)
                     .map((tweet, index) => (
                       <Box
                         key={index}
