@@ -145,7 +145,7 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
               width="3xs"
               height={12}
               color="white"
-              backgroundColor="primary"
+              // backgroundColor="primary"
             >
               Apply
             </Button>

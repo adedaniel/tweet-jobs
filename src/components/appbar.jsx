@@ -95,15 +95,19 @@ export default function Appbar() {
           </div>
         </Box>
         <Box mt="-4px" display="flex" flexDirection="row">
-          <Box mx={4} size={8} as={FiSearch}></Box>
-          <Box ml={4} size={8} as={IoIosOptions}></Box>
+          <Link href="/search">
+            <Box
+              cursor="pointer"
+              ml={4}
+              mr={[2, 4]}
+              size={8}
+              as={FiSearch}
+            ></Box>
+          </Link>
+          <Box ml={[2, 4]} size={8} as={IoIosOptions}></Box>
         </Box>
       </Flex>
       <style jsx>{`
-        .Toggler {
-          background: transparent;
-          border: none;
-        }
         .menu-wrap {
           position: fixed;
           top: 0;

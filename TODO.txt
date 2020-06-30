@@ -1,3 +1,2 @@
 - Add twitter background
-- Fix badge size
 - Google Analytics
