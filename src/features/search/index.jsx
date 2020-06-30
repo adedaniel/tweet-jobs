@@ -30,7 +30,12 @@ export default function SearchComponent() {
   const [nextJobsEndpoint, setNextJobsEndpoint] = useState("");
   const [nextTweetsEndpoint, setNextTweetsEndpoint] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMoreTweets, setHasMoreTweets] = useState(true);
+  const [hasMoreJobs, setHasMoreJobs] = useState(true);
+  const [isLoadingMoreTweets, setIsLoadingMoreTweets] = useState(false);
+  const [isLoadingMoreJobs, setIsLoadingMoreJobs] = useState(false);
+  const [tweetsDisplayLimit, setTweetsDisplayLimit] = useState(20);
+  const [jobsDisplayLimit, setJobsDisplayLimit] = useState(20);
   const [selectedJob, setSelectedJob] = useState({});
   const [filterName, setFilterName] = useState("");
   const [toFilterRemote, setToFilterRemote] = useState(false);
@@ -63,7 +68,7 @@ export default function SearchComponent() {
   };
   const fetchMoreJobsData = () => {
     if (!nextJobsEndpoint) {
-      setHasMore(false);
+      setHasMoreJobs(false);
       return;
     }
 
@@ -82,7 +87,7 @@ export default function SearchComponent() {
 
   const fetchMoreTweetsData = () => {
     if (!nextTweetsEndpoint) {
-      setHasMore(false);
+      setHasMoreTweets(false);
       return;
     }
     Axios.get(URL + nextTweetsEndpoint)
@@ -98,7 +103,7 @@ export default function SearchComponent() {
       });
   };
   const filterSearch = (job) => {
-    // To filter the array by type
+    // To filter the array by filter name
     if (job.likelyJobNames) {
       return (
         job.cleanedTweet.toLowerCase().includes(filterName.toLowerCase()) ||
@@ -121,14 +126,34 @@ export default function SearchComponent() {
       return job;
     }
   };
-  // if (
-  //   jobs.length !== 0 &&
-  //   jobs.filter(filterSearch).filter(filterRemote).length === 0
-  // ) {
-  //   fetchMoreJobsData();
 
-  //   console.log(jobs.filter(filterSearch).filter(filterRemote).length);
-  // }
+  useEffect(() => {
+    if (jobTweets.length !== 0 && hasMoreTweets) {
+      if (
+        jobTweets.filter(filterSearch).filter(filterRemote).length <
+        tweetsDisplayLimit
+      ) {
+        setIsLoadingMoreTweets(true);
+        fetchMoreTweetsData();
+      } else {
+        setIsLoadingMoreTweets(false);
+      }
+    }
+  }, [filterName, toFilterRemote, tweetsDisplayLimit, nextTweetsEndpoint]);
+
+  useEffect(() => {
+    if (jobs.length !== 0 && hasMoreJobs) {
+      if (
+        jobs.filter(filterSearch).filter(filterRemote).length < jobsDisplayLimit
+      ) {
+        setIsLoadingMoreJobs(true);
+        fetchMoreJobsData();
+      } else {
+        setIsLoadingMoreJobs(false);
+      }
+    }
+  }, [filterName, toFilterRemote, jobsDisplayLimit, nextJobsEndpoint]);
+
   return (
     <>
       <Box>
@@ -208,173 +233,183 @@ export default function SearchComponent() {
             </RadioButtonGroup>
 
             <Stack spacing={4}>
-              <InfiniteScroll
-                dataLength={
-                  showJobResults
-                    ? // .filter(filterSearch).filter(filterRemote)
-                      jobs.length
-                    : // .filter(filterSearch).filter(filterRemote)
-                      jobTweets.length
-                  // 0
-                } //This is important field to render the next data
-                next={showJobResults ? fetchMoreJobsData : fetchMoreTweetsData}
-                hasMore={hasMore}
-                loader={
-                  <Box textAlign="center">
-                    <Spinner
-                      speed="0.40s"
-                      emptyColor="gray.300"
-                      color="primary.500"
-                      size="lg"
-                    />
-                  </Box>
-                }
-                endMessage={
-                  <Text textAlign="center">
-                    <b>That's all folks!</b>
-                  </Text>
-                }
-                refreshFunction={fetchFirstPageJobs}
-                // pullDownToRefresh
-                // pullDownToRefreshContent={
-                //   <Text textAlign="center" fontSize="sm" pb={8}>
-                //     &#8595; Pull down to refresh
-                //   </Text>
-                // }
-                // releaseToRefreshContent={
-                //   <Text textAlign="center" fontSize="sm" pb={8}>
-                //     &#8593; Release to refresh
-                //   </Text>
-                // }
-                // pullDownToRefreshThreshold={50}
-              >
-                {showJobResults
-                  ? jobs
-                      .filter(filterSearch)
-                      .filter(filterRemote)
-                      .map((job, index) => (
-                        <Box
-                          key={index}
-                          shadow="none"
-                          onClick={() => openDrawer(job)}
-                          cursor="pointer"
-                          mb={4}
-                        >
-                          <Flex>
-                            <Avatar
-                              src={job.imageUrl}
-                              width={10}
-                              height={10}
-                              position="inherit"
-                              name={job.author}
-                              mr={4}
-                              mt={4}
-                              rounded={10}
-                              alt="sender-image"
-                            ></Avatar>
-                            <Flex
-                              justify="space-between"
-                              p={4}
-                              w="100%"
-                              shadow="none"
-                              backgroundColor="white"
-                              borderRadius={12}
+              {showJobResults ? (
+                <>
+                  {jobs
+                    .filter(filterSearch)
+                    .filter(filterRemote)
+                    .map((job, index) => (
+                      <Box
+                        key={index}
+                        shadow="none"
+                        onClick={() => openDrawer(job)}
+                        cursor="pointer"
+                        mb={4}
+                      >
+                        <Flex>
+                          <Avatar
+                            src={job.imageUrl}
+                            width={10}
+                            height={10}
+                            position="inherit"
+                            name={job.author}
+                            mr={4}
+                            mt={4}
+                            rounded={10}
+                            alt="sender-image"
+                          ></Avatar>
+                          <Flex
+                            justify="space-between"
+                            p={4}
+                            w="100%"
+                            shadow="none"
+                            backgroundColor="white"
+                            borderRadius={12}
 
-                              // w="calc(100vw - 210px)"
+                            // w="calc(100vw - 210px)"
+                          >
+                            <Box
+                              w={[
+                                "calc(100vw - 210px)",
+                                "calc(100vw - 210px)",
+                                "initial",
+                              ]}
                             >
-                              <Box
-                                w={[
-                                  "calc(100vw - 210px)",
-                                  "calc(100vw - 210px)",
-                                  "initial",
-                                ]}
-                              >
-                                <Heading isTruncated fontSize="lg">
-                                  {job.likelyJobNames.replace(
-                                    /(.{58})..+/,
-                                    "$1…"
-                                  )}
-                                </Heading>
+                              <Heading isTruncated fontSize="lg">
+                                {job.likelyJobNames.replace(
+                                  /(.{58})..+/,
+                                  "$1…"
+                                )}
+                              </Heading>
 
-                                <Text
-                                  color="gray.500"
-                                  fontSize="sm"
-                                  isTruncated
-                                >
-                                  by {job.author}
-                                </Text>
-                              </Box>
+                              <Text color="gray.500" fontSize="sm" isTruncated>
+                                by {job.author}
+                              </Text>
+                            </Box>
 
-                              <Box pt={2}>
-                                <Text fontSize="sm" isTruncated>
-                                  {job.tweetDate && (
-                                    <Moment fromNow ago={[true, false]}>
-                                      {job.tweetDate}
-                                    </Moment>
-                                  )}
-                                </Text>
-                              </Box>
-                            </Flex>
-                          </Flex>
-                        </Box>
-                      ))
-                  : jobTweets
-                      .filter(filterSearch)
-                      .filter(filterRemote)
-                      .map((tweet, index) => (
-                        <Box
-                          key={index}
-                          p={4}
-                          backgroundColor="white"
-                          shadow="none"
-                          mb={4}
-                          onClick={() => openDrawer(tweet)}
-                          cursor="pointer"
-                          borderRadius={12}
-                        >
-                          <Flex justify="space-between">
-                            <Flex w="calc(100vw - 210px)">
-                              <Avatar
-                                src={tweet.profile_image_url}
-                                width={10}
-                                height={10}
-                                position="inherit"
-                                name={tweet.author}
-                                mr="16px"
-                                rounded={10}
-                                alt="sender-image"
-                              ></Avatar>
-                              <Box
-                                w={[
-                                  "calc(100vw - 210px)",
-                                  "calc(100vw - 210px)",
-                                  "calc(100vw - 352px)",
-                                ]}
-                              >
-                                <Text isTruncated fontSize="md">
-                                  {tweet.cleanedTweet}
-                                </Text>
-
-                                <Text
-                                  color="gray.500"
-                                  fontSize="sm"
-                                  isTruncated
-                                >
-                                  by {tweet.author}
-                                </Text>
-                              </Box>
-                            </Flex>
                             <Box pt={2}>
                               <Text fontSize="sm" isTruncated>
-                                <Moment fromNow ago={[true, false]}>
-                                  {tweet.tweetDate}
-                                </Moment>
+                                {job.tweetDate && (
+                                  <Moment fromNow ago={[true, false]}>
+                                    {job.tweetDate}
+                                  </Moment>
+                                )}
                               </Text>
                             </Box>
                           </Flex>
-                        </Box>
-                      ))}
-              </InfiniteScroll>
+                        </Flex>
+                      </Box>
+                    ))}
+
+                  {hasMoreJobs ? (
+                    isLoadingMoreJobs ? (
+                      <Box textAlign="center">
+                        <Spinner
+                          speed="0.40s"
+                          emptyColor="gray.300"
+                          color="primary.500"
+                          size="lg"
+                        />
+                      </Box>
+                    ) : (
+                      <Text
+                        cursor="pointer"
+                        onClick={() =>
+                          setJobsDisplayLimit(jobsDisplayLimit + 20)
+                        }
+                        textAlign="center"
+                      >
+                        <b>Load More</b>
+                      </Text>
+                    )
+                  ) : (
+                    <Text textAlign="center">
+                      <b>That's all folks!</b>
+                    </Text>
+                  )}
+                </>
+              ) : (
+                <>
+                  {jobTweets
+                    .filter(filterSearch)
+                    .filter(filterRemote)
+                    .map((tweet, index) => (
+                      <Box
+                        key={index}
+                        p={4}
+                        backgroundColor="white"
+                        shadow="none"
+                        mb={4}
+                        onClick={() => openDrawer(tweet)}
+                        cursor="pointer"
+                        borderRadius={12}
+                      >
+                        <Flex justify="space-between">
+                          <Flex w="calc(100vw - 210px)">
+                            <Avatar
+                              src={tweet.profile_image_url}
+                              width={10}
+                              height={10}
+                              position="inherit"
+                              name={tweet.author}
+                              mr="16px"
+                              rounded={10}
+                              alt="sender-image"
+                            ></Avatar>
+                            <Box
+                              w={[
+                                "calc(100vw - 210px)",
+                                "calc(100vw - 210px)",
+                                "calc(100vw - 352px)",
+                              ]}
+                            >
+                              <Text isTruncated fontSize="md">
+                                {tweet.cleanedTweet}
+                              </Text>
+
+                              <Text color="gray.500" fontSize="sm" isTruncated>
+                                by {tweet.author}
+                              </Text>
+                            </Box>
+                          </Flex>
+                          <Box pt={2}>
+                            <Text fontSize="sm" isTruncated>
+                              <Moment fromNow ago={[true, false]}>
+                                {tweet.tweetDate}
+                              </Moment>
+                            </Text>
+                          </Box>
+                        </Flex>
+                      </Box>
+                    ))}
+                  {hasMoreTweets ? (
+                    isLoadingMoreTweets ? (
+                      <Box textAlign="center">
+                        <Spinner
+                          speed="0.40s"
+                          emptyColor="gray.300"
+                          color="primary.500"
+                          size="lg"
+                        />
+                      </Box>
+                    ) : (
+                      <Text
+                        cursor="pointer"
+                        onClick={() =>
+                          setTweetsDisplayLimit(tweetsDisplayLimit + 20)
+                        }
+                        textAlign="center"
+                      >
+                        <b>Load More</b>
+                      </Text>
+                    )
+                  ) : (
+                    <Text textAlign="center">
+                      <b>That's all folks!</b>
+                    </Text>
+                  )}
+                </>
+              )}
             </Stack>
           </Box>
         </Stack>
