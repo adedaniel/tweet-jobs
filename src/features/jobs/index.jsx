@@ -79,7 +79,7 @@ export default function JobsComponent() {
                     <Spinner
                       speed="0.40s"
                       emptyColor="gray.300"
-                      color="primary"
+                      color="primary.500"
                       size="lg"
                     />
                   </Box>
