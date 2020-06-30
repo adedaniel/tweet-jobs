@@ -60,7 +60,7 @@ export default function TweetsComponent() {
       <Box>
         <Heading
           textAlign="center"
-          fontSize={["2xl", "3xl"]}
+          fontSize={["xl", "3xl"]}
           mt="-48px"
           mb="48px"
         >
@@ -78,8 +78,8 @@ export default function TweetsComponent() {
                   <Box textAlign="center">
                     <Spinner
                       speed="0.40s"
-                      emptyColor="gray.200"
-                      color="primary"
+                      emptyColor="gray.300"
+                      color="primary.500"
                       size="lg"
                     />
                   </Box>
@@ -103,9 +103,9 @@ export default function TweetsComponent() {
                 }
                 pullDownToRefreshThreshold={50}
               >
-                {jobTweets.map((tweet) => (
+                {jobTweets.map((tweet, index) => (
                   <Box
-                    key={tweet.id}
+                    key={index}
                     p={4}
                     backgroundColor="white"
                     shadow="none"
@@ -166,24 +166,6 @@ export default function TweetsComponent() {
         <br />
         <br />
       </Box>
-
-      <style jsx>{`
-        .savedJobsRow::-webkit-scrollbar {
-          width: 0px !important;
-          height: 0px !important;
-          background-color: lightgray;
-          border-radius: 16px;
-        }
-
-        .savedJobsRow::-webkit-scrollbar-thumb {
-          background: rgb(226, 230, 226);
-          border-radius: 16px;
-        }
-
-        .savedJobsRow::-webkit-scrollbar-thumb:hover {
-          background: gray;
-        }
-      `}</style>
     </>
   );
 }

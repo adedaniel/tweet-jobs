@@ -78,7 +78,7 @@ export default function JobsComponent() {
                   <Box textAlign="center">
                     <Spinner
                       speed="0.40s"
-                      emptyColor="gray.200"
+                      emptyColor="gray.300"
                       color="primary"
                       size="lg"
                     />
@@ -176,24 +176,6 @@ export default function JobsComponent() {
         <br />
         <br />
       </Box>
-
-      <style jsx>{`
-        .savedJobsRow::-webkit-scrollbar {
-          width: 0px !important;
-          height: 0px !important;
-          background-color: lightgray;
-          border-radius: 16px;
-        }
-
-        .savedJobsRow::-webkit-scrollbar-thumb {
-          background: rgb(226, 230, 226);
-          border-radius: 16px;
-        }
-
-        .savedJobsRow::-webkit-scrollbar-thumb:hover {
-          background: gray;
-        }
-      `}</style>
     </>
   );
 }
