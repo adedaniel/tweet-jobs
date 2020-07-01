@@ -8,9 +8,9 @@ function Index() {
   return (
     <>
       <Head>
-        <title>See Jobs | Home</title>
+        <title>See Jobs - Home</title>
       </Head>
-      <Box backgroundColor="gray.50" pb={10}>
+      <Box backgroundColor="gray.100" pb={10}>
         <Appbar />
         <HomeComponent />
       </Box>
