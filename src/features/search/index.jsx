@@ -3,11 +3,7 @@ import {
   Text,
   Stack,
   Box,
-  Flex,
   Heading,
-  Badge,
-  Avatar,
-  useDisclosure,
   Spinner,
   Input,
   InputGroup,
@@ -17,26 +13,22 @@ import {
   Button,
   RadioButtonGroup,
 } from "@chakra-ui/core";
-import Moment from "react-moment";
 import Axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
-import FilterResults from "react-filter-search";
-import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
+import JobItem from "../../components/job-item";
+import JobTweetItem from "../../components/job-tweet-item";
 
 export default function SearchComponent() {
   const [jobs, setJobs] = useState([]);
   const [jobTweets, setJobTweets] = useState([]);
   const [nextJobsEndpoint, setNextJobsEndpoint] = useState("");
   const [nextTweetsEndpoint, setNextTweetsEndpoint] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasMoreTweets, setHasMoreTweets] = useState(true);
   const [hasMoreJobs, setHasMoreJobs] = useState(true);
   const [isLoadingMoreTweets, setIsLoadingMoreTweets] = useState(false);
   const [isLoadingMoreJobs, setIsLoadingMoreJobs] = useState(false);
   const [tweetsDisplayLimit, setTweetsDisplayLimit] = useState(20);
   const [jobsDisplayLimit, setJobsDisplayLimit] = useState(20);
-  const [selectedJob, setSelectedJob] = useState({});
   const [filterName, setFilterName] = useState("");
   const [toFilterRemote, setToFilterRemote] = useState(false);
   const [timeDifference, setTimeDifference] = useState(0);
@@ -63,10 +55,6 @@ export default function SearchComponent() {
         console.log(error.response);
       });
   };
-  const openDrawer = (job) => {
-    setSelectedJob(job);
-    onOpen();
-  };
   const fetchMoreJobsData = () => {
     if (!nextJobsEndpoint) {
       setHasMoreJobs(false);
@@ -75,14 +63,17 @@ export default function SearchComponent() {
 
     Axios.get(URL + nextJobsEndpoint)
       .then((result) => {
-        setJobs(jobs.concat(result.data.results));
-        console.log(result.data.next);
+        // console.log(result.data.next);
+        // console.log(result.data.results);
+        setJobs([...jobs].concat(result.data.results));
+
+        // console.log(jobs);
         nextJobsEndpoint === result.data.next
           ? setNextJobsEndpoint("")
           : setNextJobsEndpoint(result.data.next);
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
@@ -93,14 +84,15 @@ export default function SearchComponent() {
     }
     Axios.get(URL + nextTweetsEndpoint)
       .then((result) => {
+        // console.log(result.data.next);
+        // console.log(result.data.results);
         setJobTweets(jobTweets.concat(result.data.results));
-        console.log(result.data.next);
         nextTweetsEndpoint === result.data.next
           ? setNextTweetsEndpoint("")
           : setNextTweetsEndpoint(result.data.next);
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
       });
   };
   const filterSearch = (job) => {
@@ -127,19 +119,14 @@ export default function SearchComponent() {
       return job;
     }
   };
+
   const filterTimeDifference = (job) => {
     // To filter the array by time difference
     return (
-      new Date().getHours() - new Date(job.tweetDate).getHours() >
+      new Date().getHours() - new Date(job.tweetDate).getHours() >=
       timeDifference
     );
   };
-  // jobs.length !== 0 &&
-  //   console.log(
-  //     new Date().getHours() - new Date(jobs[1].tweetDate).getHours(),
-
-  //     timeDifference
-  //   );
   useEffect(() => {
     if (jobTweets.length !== 0 && hasMoreTweets) {
       if (
@@ -183,6 +170,12 @@ export default function SearchComponent() {
     timeDifference,
     nextJobsEndpoint,
   ]);
+
+  // console.log(
+  //   jobs.filter(filterSearch).filter(filterTimeDifference).filter(filterRemote)
+  //     .length,
+  //   jobsDisplayLimit
+  // );
 
   return (
     <>
@@ -272,66 +265,7 @@ export default function SearchComponent() {
                     .filter(filterRemote)
                     .filter(filterTimeDifference)
                     .map((job, index) => (
-                      <Box
-                        key={index}
-                        shadow="none"
-                        onClick={() => openDrawer(job)}
-                        cursor="pointer"
-                        mb={4}
-                      >
-                        <Flex>
-                          <Avatar
-                            src={job.imageUrl}
-                            width={10}
-                            height={10}
-                            position="inherit"
-                            name={job.author}
-                            mr={4}
-                            mt={4}
-                            rounded={10}
-                            alt="sender-image"
-                          ></Avatar>
-                          <Flex
-                            justify="space-between"
-                            p={4}
-                            w="100%"
-                            shadow="none"
-                            backgroundColor="white"
-                            borderRadius={12}
-
-                            // w="calc(100vw - 210px)"
-                          >
-                            <Box
-                              w={[
-                                "calc(100vw - 210px)",
-                                "calc(100vw - 210px)",
-                                "initial",
-                              ]}
-                            >
-                              <Heading isTruncated fontSize="lg">
-                                {job.likelyJobNames.replace(
-                                  /(.{58})..+/,
-                                  "$1…"
-                                )}
-                              </Heading>
-
-                              <Text color="gray.500" fontSize="sm" isTruncated>
-                                by {job.author}
-                              </Text>
-                            </Box>
-
-                            <Box pt={2}>
-                              <Text fontSize="sm" isTruncated>
-                                {job.tweetDate && (
-                                  <Moment fromNow ago={[true, false]}>
-                                    {job.tweetDate}
-                                  </Moment>
-                                )}
-                              </Text>
-                            </Box>
-                          </Flex>
-                        </Flex>
-                      </Box>
+                      <JobItem key={index} job={job} />
                     ))}
 
                   {hasMoreJobs ? (
@@ -368,53 +302,7 @@ export default function SearchComponent() {
                     .filter(filterRemote)
                     .filter(filterTimeDifference)
                     .map((tweet, index) => (
-                      <Box
-                        key={index}
-                        p={4}
-                        backgroundColor="white"
-                        shadow="none"
-                        mb={4}
-                        onClick={() => openDrawer(tweet)}
-                        cursor="pointer"
-                        borderRadius={12}
-                      >
-                        <Flex justify="space-between">
-                          <Flex w="calc(100vw - 210px)">
-                            <Avatar
-                              src={tweet.profile_image_url}
-                              width={10}
-                              height={10}
-                              position="inherit"
-                              name={tweet.author}
-                              mr="16px"
-                              rounded={10}
-                              alt="sender-image"
-                            ></Avatar>
-                            <Box
-                              w={[
-                                "calc(100vw - 210px)",
-                                "calc(100vw - 210px)",
-                                "calc(100vw - 352px)",
-                              ]}
-                            >
-                              <Text isTruncated fontSize="md">
-                                {tweet.cleanedTweet}
-                              </Text>
-
-                              <Text color="gray.500" fontSize="sm" isTruncated>
-                                by {tweet.author}
-                              </Text>
-                            </Box>
-                          </Flex>
-                          <Box pt={2}>
-                            <Text fontSize="sm" isTruncated>
-                              <Moment fromNow ago={[true, false]}>
-                                {tweet.tweetDate}
-                              </Moment>
-                            </Text>
-                          </Box>
-                        </Flex>
-                      </Box>
+                      <JobTweetItem key={index} tweet={tweet} />
                     ))}
                   {hasMoreTweets ? (
                     isLoadingMoreTweets ? (
@@ -447,11 +335,6 @@ export default function SearchComponent() {
             </Stack>
           </Box>
         </Stack>
-        <JobDrawer
-          isOpen={isOpen}
-          selectedJob={selectedJob}
-          onClose={onClose}
-        />
 
         <br />
         <br />

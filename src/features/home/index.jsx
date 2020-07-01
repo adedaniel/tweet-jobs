@@ -13,6 +13,7 @@ import Moment from "react-moment";
 import Axios from "axios";
 import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
+import JobItem from "../../components/job-item";
 
 export default function HomeComponent() {
   const [jobs, setJobs] = useState([]);
@@ -64,7 +65,6 @@ export default function HomeComponent() {
               height={[240, 290]}
               className="savedJobsRow"
               ml="-7%"
-              // onScroll={changeSelectedCard}
               px="7%"
             >
               {jobs.slice(0, 7).map((job) => (
@@ -133,61 +133,8 @@ export default function HomeComponent() {
 
           <Box pr="6%">
             <Stack spacing={4}>
-              {jobs.slice(0, 4).map((job) => (
-                <Box
-                  key={job.id}
-                  shadow="none"
-                  onClick={() => openDrawer(job)}
-                  cursor="pointer"
-                >
-                  <Flex>
-                    <Avatar
-                      src={job.imageUrl}
-                      width={10}
-                      height={10}
-                      position="inherit"
-                      name={job.author}
-                      mr={4}
-                      mt={4}
-                      rounded={10}
-                      alt="sender-image"
-                    ></Avatar>
-                    <Flex
-                      justify="space-between"
-                      p={4}
-                      w="100%"
-                      shadow="none"
-                      backgroundColor="white"
-                      borderRadius={12}
-
-                      // w="calc(100vw - 210px)"
-                    >
-                      <Box
-                        w={[
-                          "calc(100vw - 210px)",
-                          "calc(100vw - 210px)",
-                          "initial",
-                        ]}
-                      >
-                        <Heading isTruncated fontSize="lg">
-                          {job.likelyJobNames.replace(/(.{58})..+/, "$1…")}
-                        </Heading>
-
-                        <Text color="gray.500" fontSize="sm" isTruncated>
-                          by {job.author}
-                        </Text>
-                      </Box>
-
-                      <Box pt={2}>
-                        <Text fontSize="sm" isTruncated>
-                          <Moment fromNow ago={[true, false]}>
-                            {job.tweetDate}
-                          </Moment>
-                        </Text>
-                      </Box>
-                    </Flex>
-                  </Flex>
-                </Box>
+              {jobs.slice(0, 4).map((job, index) => (
+                <JobItem key={index} job={job} />
               ))}
             </Stack>
           </Box>
