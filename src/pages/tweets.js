@@ -10,7 +10,7 @@ function Tweets() {
       <Head>
         <title>See Jobs - Job Tweets</title>
       </Head>
-      <Box backgroundColor="gray.100" pb={10}>
+      <Box backgroundColor="gray.50" pb={10}>
         <Appbar />
         <TweetsComponent />
       </Box>

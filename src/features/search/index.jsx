@@ -132,7 +132,7 @@ export default function SearchComponent() {
       if (
         jobTweets
           .filter(filterSearch)
-          .filter(filterTimeDifference)
+          // .filter(filterTimeDifference)
           .filter(filterRemote).length < tweetsDisplayLimit
       ) {
         setIsLoadingMoreTweets(true);
@@ -145,7 +145,7 @@ export default function SearchComponent() {
     filterName,
     toFilterRemote,
     tweetsDisplayLimit,
-    timeDifference,
+    // timeDifference,
     nextTweetsEndpoint,
   ]);
 
@@ -154,7 +154,7 @@ export default function SearchComponent() {
       if (
         jobs
           .filter(filterSearch)
-          .filter(filterTimeDifference)
+          // .filter(filterTimeDifference)
           .filter(filterRemote).length < jobsDisplayLimit
       ) {
         setIsLoadingMoreJobs(true);
@@ -167,7 +167,7 @@ export default function SearchComponent() {
     filterName,
     toFilterRemote,
     jobsDisplayLimit,
-    timeDifference,
+    // timeDifference,
     nextJobsEndpoint,
   ]);
 
@@ -263,7 +263,7 @@ export default function SearchComponent() {
                   {jobs
                     .filter(filterSearch)
                     .filter(filterRemote)
-                    .filter(filterTimeDifference)
+                    // .filter(filterTimeDifference)
                     .map((job, index) => (
                       <JobItem key={index} job={job} />
                     ))}
@@ -300,7 +300,7 @@ export default function SearchComponent() {
                   {jobTweets
                     .filter(filterSearch)
                     .filter(filterRemote)
-                    .filter(filterTimeDifference)
+                    // .filter(filterTimeDifference)
                     .map((tweet, index) => (
                       <JobTweetItem key={index} tweet={tweet} />
                     ))}
