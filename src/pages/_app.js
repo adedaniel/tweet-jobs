@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter&family=Raleway&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Catamaran&family=Raleway&display=swap"
           rel="stylesheet"
         ></link>
         <title>See Jobs</title>
@@ -24,19 +24,26 @@ function MyApp({ Component, pageProps }) {
         body {
           color: black;
         }
-        .savedJobsRow::-webkit-scrollbar {
+        .savedJobsRow::-webkit-scrollbar,
+        .savedJobsRow::-moz-scrollbar {
           width: 0px !important;
           height: 0px !important;
-          background-color: lightgray;
+          -webkit-appearance: none !important;
+          -moz-appearance: none !important;
+          background-color: transparent;
           border-radius: 16px;
+          -ms-overflow-style: none; /* IE 11 */
+          scrollbar-width: none;
         }
 
-        .savedJobsRow::-webkit-scrollbar-thumb {
+        .savedJobsRow::-webkit-scrollbar-thumb,
+        .savedJobsRow::-moz-scrollbar-thumb {
           background: rgb(226, 230, 226);
           border-radius: 16px;
         }
 
-        .savedJobsRow::-webkit-scrollbar-thumb:hover {
+        .savedJobsRow::-webkit-scrollbar-thumb:hover,
+        .savedJobsRow::-moz-scrollbar-thumb:hover {
           background: gray;
         }
       `}</style>

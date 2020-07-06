@@ -26,7 +26,6 @@ export default function JobTweetItem({ tweet }) {
               position="inherit"
               name={tweet.author}
               mr="16px"
-              rounded={10}
               alt="sender-image"
             ></Avatar>
             <Box

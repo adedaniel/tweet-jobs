@@ -10,7 +10,6 @@ import {
   Button,
 } from "@chakra-ui/core";
 import Link from "next/link";
-import { RiMenu2Line } from "react-icons/ri";
 import { FiSearch, FiLogOut } from "react-icons/fi";
 import { IoIosOptions } from "react-icons/io";
 import FadeIn from "react-fade-in";

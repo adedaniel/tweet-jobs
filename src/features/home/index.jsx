@@ -14,7 +14,8 @@ import Axios from "axios";
 import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
 import JobItem from "../../components/job-item";
-
+import Slider from "react-slick";
+import Link from "next/link";
 export default function HomeComponent() {
   const [jobs, setJobs] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,7 +42,20 @@ export default function HomeComponent() {
     setSelectedJob(job);
     onOpen();
   };
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 5,
+    centerMode: true,
+    centerPadding: "6%",
+    swipeToSlide: true,
+    focusOnSelect: true,
+    adaptiveHeight: true,
+    slidesToScroll: 1,
+    arrows: false,
+    className: "center",
+  };
   return (
     <>
       <Box>
@@ -52,21 +66,11 @@ export default function HomeComponent() {
           <Heading my={0} fontWeight="extrabold" fontSize={["4xl", "5xl"]}>
             Your Jobs
           </Heading>
-          <Text my={1} fontSize="lg">
+          <Text fontWeight="bold" mt={2} fontSize="lg">
             Saved Jobs
           </Text>
           <div className="savedJobsRow">
-            <Flex
-              pt={1}
-              style={{ flexFlow: "nowrap" }}
-              overflowX="scroll"
-              overflowY="hidden"
-              display="flex"
-              height={[240, 290]}
-              className="savedJobsRow"
-              ml="-7%"
-              px="7%"
-            >
+            <Slider {...settings}>
               {jobs.slice(0, 7).map((job) => (
                 <Box
                   minW={[235, 240]}
@@ -113,21 +117,93 @@ export default function HomeComponent() {
                       <Avatar
                         name={job.author}
                         position="inherit"
-                        width={6}
-                        height={6}
+                        width={8}
+                        height={8}
                         src={job.imageUrl}
                       />
-
-                      <Text ml={2}>{job.author}</Text>
+                      <Text pt={1} ml={2}>
+                        {job.author}
+                      </Text>
                     </Flex>
                   </Flex>
                 </Box>
               ))}
-              <Box pr="6%"></Box>
-            </Flex>
+            </Slider>
+            {
+              // <Flex
+              //       pt={1}
+              //       style={{ flexFlow: "nowrap" }}
+              //       overflowX="scroll"
+              //       overflowY="hidden"
+              //       display="flex"
+              //       height={[240, 290]}
+              //       className="savedJobsRow"
+              //       ml="-7%"
+              //       px="7%"
+              //     >
+              //       {jobs.slice(0, 7).map((job) => (
+              //         <Box
+              //           minW={[235, 240]}
+              //           mr="16px"
+              //           display="block"
+              //           key={job.id}
+              //           p={4}
+              //           pt={4}
+              //           cursor="pointer"
+              //           wordBreak="break-word"
+              //           transition=".7s all"
+              //           onClick={() => openDrawer(job)}
+              //           border="2px solid"
+              //           borderColor={`gray.50`}
+              //           borderRadius={16}
+              //           height={[220, 260]}
+              //           backgroundColor="white"
+              //         >
+              //           <Text
+              //             height={[45, 85]}
+              //             mb={70}
+              //             transition=".6s all"
+              //             fontSize={["xl", "2xl"]}
+              //           >
+              //             {job.likelyJobNames.replace(/(.{48})..+/, "$1…")}
+              //           </Text>
+              //           <Flex justify="space-between">
+              //             <Badge
+              //               variant="subtle"
+              //               variantColor="green"
+              //               px={3}
+              //               py={1}
+              //               mb={4}
+              //               style={{
+              //                 visibility:
+              //                   job.isRemote == "true" ? "visible" : "hidden",
+              //               }}
+              //             >
+              //               Remote
+              //             </Badge>
+              //           </Flex>
+              //           <Flex justify="space-between">
+              //             <Flex>
+              //               <Avatar
+              //                 name={job.author}
+              //                 position="inherit"
+              //                 width={8}
+              //                 height={8}
+              //                 src={job.imageUrl}
+              //               />
+              //               <Text pt={1} ml={2}>
+              //                 {job.author}
+              //               </Text>
+              //             </Flex>
+              //           </Flex>
+              //         </Box>
+              //       ))}
+              //       <Box pr="6%"></Box>
+              //     </Flex>
+            }
           </div>
 
-          <Text pt={8} pb={2} fontSize="lg">
+          <Text fontWeight="bold" pt={8} pb={2} fontSize="lg">
             Recently Added
           </Text>
 
@@ -136,10 +212,15 @@ export default function HomeComponent() {
               {jobs.slice(0, 4).map((job, index) => (
                 <JobItem key={index} job={job} />
               ))}
+              <Text fontWeight="bold" textAlign="center">
+                <Link href="/jobs">
+                  <a>View All</a>
+                </Link>
+              </Text>
             </Stack>
           </Box>
 
-          <Text mt={8} fontSize="lg">
+          <Text fontWeight="bold" mt={8} fontSize="lg">
             Other Job Tweets
           </Text>
           <div className="savedJobsRow">
@@ -267,19 +348,28 @@ export default function HomeComponent() {
       </Box>
 
       <style jsx>{`
-        .savedJobsRow::-webkit-scrollbar {
+        .savedJobsRow::-webkit-scrollbar,
+        .savedJobsRow::-moz-scrollbar {
           width: 0px !important;
           height: 0px !important;
-          background-color: lightgray;
+          -webkit-appearance: none !important;
+          -moz-appearance: none !important;
+          background-color: transparent;
           border-radius: 16px;
         }
-
-        .savedJobsRow::-webkit-scrollbar-thumb {
+        .savedJobsRow {
+          -webkit-overflow-style: none !important;
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
+        }
+        .savedJobsRow::-webkit-scrollbar-thumb,
+        .savedJobsRow::-moz-scrollbar-thumb {
           background: rgb(226, 230, 226);
           border-radius: 16px;
         }
 
-        .savedJobsRow::-webkit-scrollbar-thumb:hover {
+        .savedJobsRow::-webkit-scrollbar-thumb:hover,
+        .savedJobsRow::-moz-scrollbar-thumb:hover {
           background: gray;
         }
       `}</style>
