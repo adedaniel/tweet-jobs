@@ -15,10 +15,8 @@ function MyApp({ Component, pageProps }) {
         <title>See Jobs</title>
       </Head>
       <ThemeProvider theme={theme}>
-        <ColorModeProvider>
-          <CSSReset />
-          <Component {...pageProps} />
-        </ColorModeProvider>
+        <CSSReset />
+        <Component {...pageProps} />
       </ThemeProvider>
       <style jsx global>{`
         body {

@@ -32,7 +32,7 @@ export default function JobTweetItem({ tweet }) {
               w={[
                 "calc(100vw - 210px)",
                 "calc(100vw - 210px)",
-                "calc(100vw - 352px)",
+                "calc(100vw - 382px)",
               ]}
             >
               <Text isTruncated fontSize="md">
