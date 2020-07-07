@@ -25,7 +25,6 @@ export default function JobItem({ job }) {
             name={job.author}
             mr={4}
             mt={4}
-            rounded={10}
             alt="sender-image"
           ></Avatar>
           <Flex

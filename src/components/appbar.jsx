@@ -10,7 +10,6 @@ import {
   Button,
 } from "@chakra-ui/core";
 import Link from "next/link";
-import { RiMenu2Line } from "react-icons/ri";
 import { FiSearch, FiLogOut } from "react-icons/fi";
 import { IoIosOptions } from "react-icons/io";
 import FadeIn from "react-fade-in";
@@ -18,7 +17,13 @@ export default function Appbar() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Flex justify="space-between" pl={("4%", "5%")} pr="5%" pt={10} pb={4}>
+      <Flex
+        justify="space-between"
+        pl={["2%", "7%"]}
+        pr={["4%", "8%"]}
+        pt={10}
+        pb={4}
+      >
         <Box className="openMenu">
           <input
             type="checkbox"
@@ -31,14 +36,15 @@ export default function Appbar() {
           <div className="menu">
             <div>
               <Box h="100vh" w="100vw">
-                <Box px={("8%", "8%")} pt={10}>
+                <Box px={("8%", "8%")} pt={8}>
                   <Flex justify="flex-end">
                     <Button
                       fontWeight="normal"
                       variant="ghost"
                       position="fixed"
                       rightIcon={FiLogOut}
-                      fontSize="xl"
+                      color="gray.500"
+                      fontSize="lg"
                     >
                       Logout
                     </Button>

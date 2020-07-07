@@ -14,7 +14,7 @@ import Axios from "axios";
 import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
 import JobItem from "../../components/job-item";
-
+import Link from "next/link";
 export default function HomeComponent() {
   const [jobs, setJobs] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,14 +45,14 @@ export default function HomeComponent() {
   return (
     <>
       <Box>
-        <Stack pl="6%">
+        <Stack pl={["4%", "8%"]}>
           <Text style={{ marginBottom: "-4px" }} color="gray.600" fontSize="lg">
             Hello Klein,
           </Text>
           <Heading my={0} fontWeight="extrabold" fontSize={["4xl", "5xl"]}>
             Your Jobs
           </Heading>
-          <Text my={1} fontSize="lg">
+          <Text fontWeight="bold" mt={2} fontSize="lg">
             Saved Jobs
           </Text>
           <div className="savedJobsRow">
@@ -113,33 +113,40 @@ export default function HomeComponent() {
                       <Avatar
                         name={job.author}
                         position="inherit"
-                        width={6}
-                        height={6}
+                        width={8}
+                        height={8}
                         src={job.imageUrl}
                       />
 
-                      <Text ml={2}>{job.author}</Text>
+                      <Text pt={1} ml={2}>
+                        {job.author}
+                      </Text>
                     </Flex>
                   </Flex>
                 </Box>
               ))}
-              <Box pr="6%"></Box>
+              <Box pr={["4%", "8%"]}></Box>
             </Flex>
           </div>
 
-          <Text pt={8} pb={2} fontSize="lg">
+          <Text fontWeight="bold" pt={8} pb={2} fontSize="lg">
             Recently Added
           </Text>
 
-          <Box pr="6%">
+          <Box pr={["4%", "8%"]}>
             <Stack spacing={4}>
               {jobs.slice(0, 4).map((job, index) => (
                 <JobItem key={index} job={job} />
               ))}
+              <Text fontWeight="bold" textAlign="center">
+                <Link href="/jobs">
+                  <a>View All</a>
+                </Link>
+              </Text>
             </Stack>
           </Box>
 
-          <Text mt={8} fontSize="lg">
+          <Text fontWeight="bold" mt={8} fontSize="lg">
             Other Job Tweets
           </Text>
           <div className="savedJobsRow">
@@ -198,11 +205,11 @@ export default function HomeComponent() {
                   </Flex>
                 </Box>
               ))}
-              <Box pr="6%"></Box>
+              <Box pr={["4%", "8%"]}></Box>
             </Flex>
           </div>
 
-          <Box mt={4} pr="6%">
+          <Box mt={4} pr={["4%", "8%"]}>
             <Stack spacing={3}>
               {tweetJobs.slice(8, 13).map((tweet) => (
                 <Box
@@ -267,19 +274,28 @@ export default function HomeComponent() {
       </Box>
 
       <style jsx>{`
-        .savedJobsRow::-webkit-scrollbar {
+        .savedJobsRow::-webkit-scrollbar,
+        .savedJobsRow::-moz-scrollbar {
           width: 0px !important;
           height: 0px !important;
-          background-color: lightgray;
+          -webkit-appearance: none !important;
+          -moz-appearance: none !important;
+          background-color: transparent;
           border-radius: 16px;
         }
-
-        .savedJobsRow::-webkit-scrollbar-thumb {
+        .savedJobsRow {
+          -webkit-overflow-style: none !important;
+          -ms-overflow-style: none !important;
+          scrollbar-width: none !important;
+        }
+        .savedJobsRow::-webkit-scrollbar-thumb,
+        .savedJobsRow::-moz-scrollbar-thumb {
           background: rgb(226, 230, 226);
           border-radius: 16px;
         }
 
-        .savedJobsRow::-webkit-scrollbar-thumb:hover {
+        .savedJobsRow::-webkit-scrollbar-thumb:hover,
+        .savedJobsRow::-moz-scrollbar-thumb:hover {
           background: gray;
         }
       `}</style>

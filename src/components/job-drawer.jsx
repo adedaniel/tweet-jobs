@@ -16,6 +16,7 @@ import {
   DrawerFooter,
   IconButton,
   Button,
+  PseudoBox,
 } from "@chakra-ui/core";
 import Moment from "react-moment";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
@@ -49,15 +50,24 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
       >
         <DrawerCloseButton top={4} right={[4, 8]} />
         <DrawerHeader borderBottomWidth="0px">
-          <Box
+          <PseudoBox
             height="6px"
             width="50%"
+            display="block"
             margin="0 auto"
-            cursor={"row-resize"}
-            onClick={onClose}
+            draggable
+            cursor="grab"
+            transition="0.5s all"
+            // onClick={onClose}
+            _hover={{
+              backgroundColor: "gray.300",
+              width: "51%",
+            }}
+            _grabbed={{ cursor: "grabbing" }}
+            onDragEnd={(e) => e.clientY > 250 && onClose()}
             backgroundColor="gray.200"
             rounded={8}
-          ></Box>
+          ></PseudoBox>
         </DrawerHeader>
         <DrawerBody px={["6%", "20%"]}>
           <Box mt={4} textAlign="center">

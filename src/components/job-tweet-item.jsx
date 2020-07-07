@@ -26,14 +26,13 @@ export default function JobTweetItem({ tweet }) {
               position="inherit"
               name={tweet.author}
               mr="16px"
-              rounded={10}
               alt="sender-image"
             ></Avatar>
             <Box
               w={[
                 "calc(100vw - 210px)",
                 "calc(100vw - 210px)",
-                "calc(100vw - 352px)",
+                "calc(100vw - 382px)",
               ]}
             >
               <Text isTruncated fontSize="md">
