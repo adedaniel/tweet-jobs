@@ -21,6 +21,7 @@ import {
 import Moment from "react-moment";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 export default function JobDrawer({ isOpen, onClose, selectedJob }) {
+  const [touchLevel, setTouchLevel] = useState(0);
   const referenceField = useRef();
   const {
     imageUrl,
@@ -34,7 +35,13 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
     author,
     urls,
   } = selectedJob;
-
+  const performTouchResponse = () => {
+    if (touchLevel > 200) {
+      onClose();
+      setTouchLevel(0);
+    }
+  };
+  // const isMobile =
   return (
     <Drawer
       initialFocusRef={referenceField}
@@ -46,16 +53,18 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
       <DrawerContent
         ref={referenceField}
         borderRadius={["20px 20px 0 0", "20px 20px 0 0", "30px 30px 0 0"]}
-        height={["70%", "70%", "70%", "65%"]}
+        height={["75%", "75%", "75%", "70%"]}
       >
         <DrawerCloseButton top={4} right={[4, 8]} />
         <DrawerHeader borderBottomWidth="0px">
           <PseudoBox
-            height="6px"
+            height="8px"
             width="50%"
             display="block"
             margin="0 auto"
             draggable
+            onTouchMove={(e) => setTouchLevel(e.touches[0].clientY)}
+            onTouchEnd={performTouchResponse}
             cursor="grab"
             transition="0.5s all"
             // onClick={onClose}
@@ -64,7 +73,11 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
               width: "51%",
             }}
             _grabbed={{ cursor: "grabbing" }}
-            onDragEnd={(e) => e.clientY > 250 && onClose()}
+            onDragEnd={(e) => e.clientY > 200 && onClose()}
+            // onDrag={(e) => {
+            //   e = window.event || e;
+            //   console.log(e.clientY);
+            // }}
             backgroundColor="gray.200"
             rounded={8}
           ></PseudoBox>
