@@ -15,7 +15,9 @@ import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
 import JobItem from "../../components/job-item";
 import Link from "next/link";
-export default function HomeComponent() {
+import theme from "../../theme.js";
+
+function HomeComponent() {
   const [jobs, setJobs] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [tweetJobs, setTweetJobs] = useState([]);
@@ -41,7 +43,15 @@ export default function HomeComponent() {
     setSelectedJob(job);
     onOpen();
   };
-
+  const { colors } = theme;
+  const colorValues = [
+    colors.gray[400],
+    colors.green[500],
+    colors.teal[300],
+    colors.cyan[400],
+    colors.yellow[300],
+  ];
+  // console.log(c);
   return (
     <>
       <Box>
@@ -55,17 +65,18 @@ export default function HomeComponent() {
           <Text fontWeight="bold" mt={2} fontSize="lg">
             Saved Jobs
           </Text>
-          <div className="savedJobsRow">
+          <div className="">
             <Flex
               pt={1}
               style={{ flexFlow: "nowrap" }}
               overflowX="scroll"
               overflowY="hidden"
               display="flex"
+              // bg="blue.300"
               height={[240, 290]}
               className="savedJobsRow"
-              ml="-7%"
-              px="7%"
+              ml={["-5%", "-9%"]}
+              px="9%"
             >
               {jobs.slice(0, 7).map((job) => (
                 <Box
@@ -75,6 +86,11 @@ export default function HomeComponent() {
                   key={job.id}
                   p={4}
                   pt={4}
+                  bg={
+                    colorValues[
+                      Math.floor(Math.random(0, 4) * colorValues.length)
+                    ]
+                  }
                   cursor="pointer"
                   wordBreak="break-word"
                   transition=".7s all"
@@ -83,7 +99,7 @@ export default function HomeComponent() {
                   borderColor={`gray.50`}
                   borderRadius={16}
                   height={[220, 260]}
-                  backgroundColor="white"
+                  // backgroundColor="white"
                 >
                   <Text
                     height={[45, 85]}
@@ -125,7 +141,7 @@ export default function HomeComponent() {
                   </Flex>
                 </Box>
               ))}
-              <Box pr={["4%", "8%"]}></Box>
+              <Box pr={["5%", "9%"]}></Box>
             </Flex>
           </div>
 
@@ -145,122 +161,120 @@ export default function HomeComponent() {
               </Text>
             </Stack>
           </Box>
-
-          <Text fontWeight="bold" mt={8} fontSize="lg">
-            Other Job Tweets
-          </Text>
-          <div className="savedJobsRow">
-            <Flex
-              style={{ flexFlow: "nowrap" }}
-              overflowX="scroll"
-              overflowY="hidden"
-              display="flex"
-              className="savedJobsRow"
-              ml="-7%"
-              px="7%"
-              pt={1}
-            >
-              {tweetJobs.slice(0, 7).map((tweet) => (
-                <Box
-                  minW={[200, 240]}
-                  mr="16px"
-                  key={tweet.id}
-                  display="block"
-                  wordBreak="break-word"
-                  p={4}
-                  cursor="pointer"
-                  onClick={() => openDrawer(tweet)}
-                  border="2px solid"
-                  borderColor="gray.50"
-                  borderRadius={16}
-                  height={[180, 220]}
-                  backgroundColor="white"
-                >
-                  <Text height={[50, 80]} mb={70} fontSize={["sm", "lg"]}>
-                    {tweet.cleanedTweet.replace(/(.{88})..+/, "$1…")}
-                  </Text>
-                  <Flex justify="space-between">
-                    <Flex width="70%">
-                      <Avatar
-                        name={tweet.author}
-                        position="inherit"
-                        width={6}
-                        height={6}
-                        src={tweet.profile_image_url}
-                      />
-
-                      <Text isTruncated ml={2}>
-                        {tweet.author}
-                      </Text>
-                    </Flex>
-                    <Box>
-                      <Moment
-                        //  fromNow
-                        format="hh:mm"
-                        ago={[true, false]}
-                      >
-                        {tweet.tweetDate}
-                      </Moment>
-                    </Box>
-                  </Flex>
-                </Box>
-              ))}
-              <Box pr={["4%", "8%"]}></Box>
-            </Flex>
-          </div>
-
-          <Box mt={4} pr={["4%", "8%"]}>
-            <Stack spacing={3}>
-              {tweetJobs.slice(8, 13).map((tweet) => (
-                <Box
-                  key={tweet.id}
-                  p={4}
-                  backgroundColor="white"
-                  shadow="none"
-                  onClick={() => openDrawer(tweet)}
-                  cursor="pointer"
-                  borderRadius={12}
-                >
-                  <Flex justify="space-between">
-                    <Flex w="calc(100vw - 210px)">
-                      <Avatar
-                        src={tweet.profile_image_url}
-                        width={10}
-                        height={10}
-                        position="inherit"
-                        name={tweet.author}
-                        mr="16px"
-                        rounded={10}
-                        alt="sender-image"
-                      ></Avatar>
-                      <Box
-                        w={[
-                          "calc(100vw - 210px)",
-                          "calc(100vw - 210px)",
-                          "calc(100vw - 352px)",
-                        ]}
-                      >
-                        <Text isTruncated fontSize="md">
-                          {tweet.cleanedTweet}
-                        </Text>
-
-                        <Text color="gray.500" fontSize="sm" isTruncated>
-                          by {tweet.author}
-                        </Text>
-                      </Box>
-                    </Flex>
-                    <Box pt={2}>
-                      <Text fontSize="sm" isTruncated>
-                        <Moment fromNow ago={[true, false]}>
-                          {tweet.tweetDate}
-                        </Moment>
-                      </Text>
-                    </Box>
-                  </Flex>
-                </Box>
-              ))}
-            </Stack>
-          </Box>
+          {
+            // <Text fontWeight="bold" mt={8} fontSize="lg">
+            //   Other Job Tweets
+            // </Text>
+            // <div className="savedJobsRow">
+            //   <Flex
+            //     style={{ flexFlow: "nowrap" }}
+            //     overflowX="scroll"
+            //     overflowY="hidden"
+            //     display="flex"
+            //     className="savedJobsRow"
+            //     ml="-7%"
+            //     px="7%"
+            //     pt={1}
+            //   >
+            //     {tweetJobs.slice(0, 7).map((tweet) => (
+            //       <Box
+            //         minW={[200, 240]}
+            //         mr="16px"
+            //         key={tweet.id}
+            //         display="block"
+            //         wordBreak="break-word"
+            //         p={4}
+            //         cursor="pointer"
+            //         onClick={() => openDrawer(tweet)}
+            //         border="2px solid"
+            //         borderColor="gray.50"
+            //         borderRadius={16}
+            //         height={[180, 220]}
+            //         backgroundColor="white"
+            //       >
+            //         <Text height={[50, 80]} mb={70} fontSize={["sm", "lg"]}>
+            //           {tweet.cleanedTweet.replace(/(.{88})..+/, "$1…")}
+            //         </Text>
+            //         <Flex justify="space-between">
+            //           <Flex width="70%">
+            //             <Avatar
+            //               name={tweet.author}
+            //               position="inherit"
+            //               width={6}
+            //               height={6}
+            //               src={tweet.profile_image_url}
+            //             />
+            //             <Text isTruncated ml={2}>
+            //               {tweet.author}
+            //             </Text>
+            //           </Flex>
+            //           <Box>
+            //             <Moment
+            //               //  fromNow
+            //               format="hh:mm"
+            //               ago={[true, false]}
+            //             >
+            //               {tweet.tweetDate}
+            //             </Moment>
+            //           </Box>
+            //         </Flex>
+            //       </Box>
+            //     ))}
+            //     <Box pr={["4%", "8%"]}></Box>
+            //   </Flex>
+            // </div>
+            // <Box mt={4} pr={["4%", "8%"]}>
+            //   <Stack spacing={3}>
+            //     {tweetJobs.slice(8, 13).map((tweet) => (
+            //       <Box
+            //         key={tweet.id}
+            //         p={4}
+            //         backgroundColor="white"
+            //         shadow="none"
+            //         onClick={() => openDrawer(tweet)}
+            //         cursor="pointer"
+            //         borderRadius={12}
+            //       >
+            //         <Flex justify="space-between">
+            //           <Flex w="calc(100vw - 210px)">
+            //             <Avatar
+            //               src={tweet.profile_image_url}
+            //               width={10}
+            //               height={10}
+            //               position="inherit"
+            //               name={tweet.author}
+            //               mr="16px"
+            //               rounded={10}
+            //               alt="sender-image"
+            //             ></Avatar>
+            //             <Box
+            //               w={[
+            //                 "calc(100vw - 210px)",
+            //                 "calc(100vw - 210px)",
+            //                 "calc(100vw - 352px)",
+            //               ]}
+            //             >
+            //               <Text isTruncated fontSize="md">
+            //                 {tweet.cleanedTweet}
+            //               </Text>
+            //               <Text color="gray.500" fontSize="sm" isTruncated>
+            //                 by {tweet.author}
+            //               </Text>
+            //             </Box>
+            //           </Flex>
+            //           <Box pt={2}>
+            //             <Text fontSize="sm" isTruncated>
+            //               <Moment fromNow ago={[true, false]}>
+            //                 {tweet.tweetDate}
+            //               </Moment>
+            //             </Text>
+            //           </Box>
+            //         </Flex>
+            //       </Box>
+            //     ))}
+            //   </Stack>
+            // </Box>
+          }
         </Stack>
         <JobDrawer
           isOpen={isOpen}
@@ -272,33 +286,7 @@ export default function HomeComponent() {
         <br />
         <br />
       </Box>
-
-      <style jsx>{`
-        .savedJobsRow::-webkit-scrollbar,
-        .savedJobsRow::-moz-scrollbar {
-          width: 0px !important;
-          height: 0px !important;
-          -webkit-appearance: none !important;
-          -moz-appearance: none !important;
-          background-color: transparent;
-          border-radius: 16px;
-        }
-        .savedJobsRow {
-          -webkit-overflow-style: none !important;
-          -ms-overflow-style: none !important;
-          scrollbar-width: none !important;
-        }
-        .savedJobsRow::-webkit-scrollbar-thumb,
-        .savedJobsRow::-moz-scrollbar-thumb {
-          background: rgb(226, 230, 226);
-          border-radius: 16px;
-        }
-
-        .savedJobsRow::-webkit-scrollbar-thumb:hover,
-        .savedJobsRow::-moz-scrollbar-thumb:hover {
-          background: gray;
-        }
-      `}</style>
     </>
   );
 }
+export default React.memo(HomeComponent);

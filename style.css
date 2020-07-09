@@ -1,14 +1,28 @@
-.savedJobsRow::-webkit-scrollbar,
+.savedJobsRow::-webkit-scrollbar
+/* , .savedJobsRow::-moz-scrollbar  */
+
+  {
+  width: 0px !important;
+  height: 0px !important;
+  /* -moz-appearance: none !important; */
+  -webkit-appearance: none !important;
+  background-color: transparent;
+  border-radius: 16px;
+  -ms-overflow-style: none !important;
+  /* IE 11 */
+  scrollbar-width: none !important;
+}
+
 .savedJobsRow::-moz-scrollbar {
   width: 0px !important;
   height: 0px !important;
+  /* -moz-appearance: none !important; */
   -webkit-appearance: none !important;
-  -moz-appearance: none !important;
   background-color: transparent;
   border-radius: 16px;
-  -ms-overflow-style: none;
+  -ms-overflow-style: none !important;
   /* IE 11 */
-  scrollbar-width: none;
+  scrollbar-width: none !important;
 }
 
 .savedJobsRow {
@@ -17,24 +31,24 @@
   scrollbar-width: none !important;
 }
 
-.savedJobsRow::-webkit-scrollbar-thumb,
-.savedJobsRow::-moz-scrollbar-thumb {
+.savedJobsRow::-webkit-scrollbar-thumb, .savedJobsRow::-moz-scrollbar-thumb {
   background: rgb(226, 230, 226);
   border-radius: 16px;
 }
 
-.savedJobsRow::-webkit-scrollbar-thumb:hover,
-.savedJobsRow::-moz-scrollbar-thumb:hover {
+.savedJobsRow::-webkit-scrollbar-thumb:hover, .savedJobsRow::-moz-scrollbar-thumb:hover {
   background: gray;
 }
 
 .slick-list {
   margin-left: -7%;
 }
+
 .slick-slide {
   margin: 0 8px;
   width: 240px !important;
 }
+
 @media (max-width: 575px) {
   .slick-slide {
     width: 235px !important;
