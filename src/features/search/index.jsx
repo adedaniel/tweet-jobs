@@ -119,13 +119,6 @@ export default function SearchComponent() {
       return job;
     }
   };
-  console.log(timeDifference);
-  jobs.length !== 0 &&
-    console.log(
-      new Date() - new Date(jobs[1].tweetDate),
-      jobs[1].tweetDate,
-      new Date(jobs[1].tweetDate)
-    );
 
   const filterTimeDifference = (job) => {
     // To filter the array by time difference
