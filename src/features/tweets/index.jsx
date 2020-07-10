@@ -48,8 +48,8 @@ export default function TweetsComponent() {
           Job Tweets
         </Heading>
 
-        <Stack pl="6%">
-          <Box pr="6%">
+        <Stack pl={["5%", "8%"]}>
+          <Box pr={["5%", "8%"]}>
             <Stack spacing={4}>
               <InfiniteScroll
                 dataLength={jobTweets.length} //This is important field to render the next data

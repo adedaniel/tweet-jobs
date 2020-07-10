@@ -119,12 +119,20 @@ export default function SearchComponent() {
       return job;
     }
   };
+  console.log(timeDifference);
+  jobs.length !== 0 &&
+    console.log(
+      new Date() - new Date(jobs[1].tweetDate),
+      jobs[1].tweetDate,
+      new Date(jobs[1].tweetDate)
+    );
 
   const filterTimeDifference = (job) => {
     // To filter the array by time difference
     return (
-      new Date().getHours() - new Date(job.tweetDate).getHours() >=
-      timeDifference
+      new Date() - new Date(job.tweetDate) >= timeDifference
+
+      // new Date().getHours() - new Date(job.tweetDate).getHours()
     );
   };
   useEffect(() => {
@@ -145,7 +153,7 @@ export default function SearchComponent() {
     filterName,
     toFilterRemote,
     tweetsDisplayLimit,
-    // timeDifference,
+    timeDifference,
     nextTweetsEndpoint,
   ]);
 
@@ -154,7 +162,7 @@ export default function SearchComponent() {
       if (
         jobs
           .filter(filterSearch)
-          // .filter(filterTimeDifference)
+          .filter(filterTimeDifference)
           .filter(filterRemote).length < jobsDisplayLimit
       ) {
         setIsLoadingMoreJobs(true);
@@ -167,7 +175,7 @@ export default function SearchComponent() {
     filterName,
     toFilterRemote,
     jobsDisplayLimit,
-    // timeDifference,
+    timeDifference,
     nextJobsEndpoint,
   ]);
 
@@ -189,8 +197,8 @@ export default function SearchComponent() {
           Search Jobs
         </Heading>
 
-        <Stack pl="6%">
-          <Box pr="6%">
+        <Stack pl={["5%", "8%"]}>
+          <Box pr={["5%", "8%"]}>
             <InputGroup rounded={8} size="lg" mb={3}>
               <Input
                 variant="filled"
@@ -214,17 +222,17 @@ export default function SearchComponent() {
                 onChange={(e) => setTimeDifference(e.target.value)}
                 placeholder="Choose Time"
               >
-                <option value={1}>From 1 hour ago</option>
-                <option value={2}>From 2 hours ago</option>
-                <option value={3}>From 3 hours ago</option>
-                <option value={4}>From 4 hours ago</option>
-                <option value={5}>From 5 hours ago</option>
-                <option value={6}>From 6 hours ago</option>
-                <option value={7}>From 7 hours ago</option>
-                <option value={8}>From 8 hours ago</option>
-                <option value={9}>From 9 hours ago</option>
-                <option value={10}>From 10 hours ago</option>
-                <option value={11}>From 11 hours ago</option>
+                <option value={1 * 3600000}>From 1 hour ago</option>
+                <option value={2 * 3600000}>From 2 hours ago</option>
+                <option value={3 * 3600000}>From 3 hours ago</option>
+                <option value={4 * 3600000}>From 4 hours ago</option>
+                <option value={5 * 3600000}>From 5 hours ago</option>
+                <option value={6 * 3600000}>From 6 hours ago</option>
+                <option value={7 * 3600000}>From 7 hours ago</option>
+                <option value={8 * 3600000}>From 8 hours ago</option>
+                <option value={9 * 3600000}>From 9 hours ago</option>
+                <option value={10 * 3600000}>From 10 hours ago</option>
+                <option value={11 * 3600000}>From 11 hours ago</option>
               </Select>
               <Button
                 w="2xs"
@@ -263,7 +271,7 @@ export default function SearchComponent() {
                   {jobs
                     .filter(filterSearch)
                     .filter(filterRemote)
-                    // .filter(filterTimeDifference)
+                    .filter(filterTimeDifference)
                     .map((job, index) => (
                       <JobItem key={index} job={job} />
                     ))}
@@ -300,7 +308,7 @@ export default function SearchComponent() {
                   {jobTweets
                     .filter(filterSearch)
                     .filter(filterRemote)
-                    // .filter(filterTimeDifference)
+                    .filter(filterTimeDifference)
                     .map((tweet, index) => (
                       <JobTweetItem key={index} tweet={tweet} />
                     ))}
