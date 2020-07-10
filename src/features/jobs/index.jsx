@@ -49,8 +49,8 @@ export default function JobsComponent() {
           Jobs
         </Heading>
 
-        <Stack pl="6%">
-          <Box pr="6%">
+        <Stack pl={["5%", "8%"]}>
+          <Box pr={["5%", "8%"]}>
             <Stack spacing={4}>
               <InfiniteScroll
                 dataLength={jobs.length} //This is important field to render the next data
