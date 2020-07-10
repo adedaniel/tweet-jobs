@@ -19,7 +19,7 @@ export default function Appbar() {
     <>
       <Flex
         justify="space-between"
-        pl={["2%", "7%"]}
+        pl={["3%", "7%"]}
         pr={["4%", "8%"]}
         pt={10}
         pb={4}
@@ -36,7 +36,7 @@ export default function Appbar() {
           <div className="menu">
             <div>
               <Box h="100vh" w="100vw">
-                <Box px={("8%", "8%")} pt={8}>
+                <Box px={["6%", "8%"]} pt={8}>
                   <Flex justify="flex-end">
                     <Button
                       fontWeight="normal"

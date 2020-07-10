@@ -53,13 +53,13 @@ export default function JobDrawer({ isOpen, onClose, selectedJob }) {
       <DrawerContent
         ref={referenceField}
         borderRadius={["20px 20px 0 0", "20px 20px 0 0", "30px 30px 0 0"]}
-        height={["75%", "75%", "75%", "70%"]}
+        height={["72%", "72%", "72%", "67%"]}
       >
         <DrawerCloseButton top={4} right={[4, 8]} />
         <DrawerHeader borderBottomWidth="0px">
           <PseudoBox
-            height="8px"
-            width="50%"
+            height="7px"
+            width="60%"
             display="block"
             margin="0 auto"
             draggable

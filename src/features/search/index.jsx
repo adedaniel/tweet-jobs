@@ -189,8 +189,8 @@ export default function SearchComponent() {
           Search Jobs
         </Heading>
 
-        <Stack pl="6%">
-          <Box pr="6%">
+        <Stack pl={["5%", "8%"]}>
+          <Box pr={["5%", "8%"]}>
             <InputGroup rounded={8} size="lg" mb={3}>
               <Input
                 variant="filled"

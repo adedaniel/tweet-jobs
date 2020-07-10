@@ -45,17 +45,17 @@ function HomeComponent() {
   };
   const { colors } = theme;
   const colorValues = [
-    colors.gray[400],
-    colors.green[500],
-    colors.teal[300],
-    colors.cyan[400],
-    colors.yellow[300],
+    "#d5cbe0",
+    colors.gray[200],
+    "#96d0c8",
+    "#87ccd8",
+    colors.primary[200],
   ];
   // console.log(c);
   return (
     <>
       <Box>
-        <Stack pl={["4%", "8%"]}>
+        <Stack pl={["5%", "8%"]}>
           <Text style={{ marginBottom: "-4px" }} color="gray.600" fontSize="lg">
             Hello Klein,
           </Text>
@@ -75,8 +75,8 @@ function HomeComponent() {
               // bg="blue.300"
               height={[240, 290]}
               className="savedJobsRow"
-              ml={["-5%", "-9%"]}
-              px="9%"
+              ml={["-6%", "-9%"]}
+              px={["6%", "9%"]}
             >
               {jobs.slice(0, 7).map((job) => (
                 <Box
@@ -149,9 +149,9 @@ function HomeComponent() {
             Recently Added
           </Text>
 
-          <Box pr={["4%", "8%"]}>
+          <Box pr={["5%", "8%"]}>
             <Stack spacing={4}>
-              {jobs.slice(0, 4).map((job, index) => (
+              {jobs.slice(0, 7).map((job, index) => (
                 <JobItem key={index} job={job} />
               ))}
               <Text fontWeight="bold" textAlign="center">
@@ -220,10 +220,10 @@ function HomeComponent() {
             //         </Flex>
             //       </Box>
             //     ))}
-            //     <Box pr={["4%", "8%"]}></Box>
+            //     <Box pr={["5%", "8%"]}></Box>
             //   </Flex>
             // </div>
-            // <Box mt={4} pr={["4%", "8%"]}>
+            // <Box mt={4} pr={["5%", "8%"]}>
             //   <Stack spacing={3}>
             //     {tweetJobs.slice(8, 13).map((tweet) => (
             //       <Box
