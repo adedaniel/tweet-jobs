@@ -15,11 +15,11 @@ import JobDrawer from "../../components/job-drawer";
 import { URL } from "../../utils/url";
 import JobItem from "../../components/job-item";
 import Link from "next/link";
-import FeaturedGallery from "./featured-gallery";
+import FeaturedGallery from "./featured-card";
+import theme from "../../theme";
 
 function HomeComponent() {
   const [jobs, setJobs] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [tweetJobs, setTweetJobs] = useState([]);
   const [selectedJob, setSelectedJob] = useState({});
   useEffect(() => {
@@ -38,8 +38,14 @@ function HomeComponent() {
         console.log(error.response);
       });
   }, []);
-
-
+  const { colors } = theme;
+  const colorValues = [
+    "#d5cbe0",
+    colors.gray[200],
+    "#96d0c8",
+    "#87ccd8",
+    colors.primary[200],
+  ];
   // console.log(c);
   return (
     <>
@@ -68,7 +74,14 @@ function HomeComponent() {
               px={["6%", "9%"]}
             >
               {jobs.slice(0, 7).map((job) => (
-                <FeaturedGallery job={job} />
+                <FeaturedGallery
+                  color={
+                    colorValues[
+                      Math.floor(Math.random(0, 4) * colorValues.length)
+                    ]
+                  }
+                  job={job}
+                />
               ))}
               <Box pr={["5%", "9%"]}></Box>
             </Flex>
@@ -205,11 +218,6 @@ function HomeComponent() {
             // </Box>
           }
         </Stack>
-        <JobDrawer
-          isOpen={isOpen}
-          selectedJob={selectedJob}
-          onClose={onClose}
-        />
 
         <br />
         <br />

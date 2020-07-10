@@ -12,7 +12,7 @@ import {
 import theme from "../../theme.js";
 import JobDrawer from "../../components/job-drawer.jsx";
 
-function FeaturedGallery({ job }) {
+function FeaturedGallery({ job, color }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { colors } = theme;
@@ -35,7 +35,7 @@ function FeaturedGallery({ job }) {
       key={job.id}
       p={4}
       pt={4}
-      bg={colorValues[Math.floor(Math.random(0, 4) * colorValues.length)]}
+      bg={color}
       cursor="pointer"
       wordBreak="break-word"
       transition=".7s all"
