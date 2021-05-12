@@ -28,6 +28,6 @@
     "react-moment": "^0.9.7",
     "react-responsive": "^8.1.0",
     "react-slick": "^0.26.1",
-    "swiper": "^5.4.5"
+    "swiper": "^6.5.1"
   }
 }
